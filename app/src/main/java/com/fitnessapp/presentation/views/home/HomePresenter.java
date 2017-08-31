@@ -2,6 +2,7 @@ package com.fitnessapp.presentation.views.home;
 
 import android.app.Activity;
 import android.content.IntentSender;
+import android.hardware.Sensor;
 import android.os.Bundle;
 import android.service.carrier.CarrierMessagingService;
 import android.support.annotation.NonNull;
@@ -14,6 +15,7 @@ import com.fitnessapp.app.App;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.common.api.Status;
@@ -27,12 +29,7 @@ import com.google.android.gms.fitness.request.DataSourcesRequest;
 import com.google.android.gms.fitness.request.OnDataPointListener;
 import com.google.android.gms.fitness.request.SensorRequest;
 import com.google.android.gms.fitness.result.DataSourcesResult;
-import com.google.android.gms.instantapps.ActivityCompat;
-
 import java.util.concurrent.TimeUnit;
-
-import static android.content.ContentValues.TAG;
-import static com.google.android.gms.internal.zzail.runOnUiThread;
 
 /**
  * Created by carriagecompany on 8/28/17.
@@ -75,7 +72,7 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
         try {
             connectionResult.startResolutionForResult((Activity) mView, REQUEST_OAUTH);
         } catch (IntentSender.SendIntentException e) {
-
+            e.printStackTrace();
         }
     }
 
@@ -84,39 +81,30 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
 
         for (final Field field : dataPoint.getDataType().getFields()) {
             final Value value = dataPoint.getValue(field);
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
 
-                    mView.showStepsCount(value + "");
-                    Toast.makeText(App.getContext(), "Field: " + field.getName() + " Value: " + value, Toast.LENGTH_SHORT).show();
-                }
-            });
+            mView.showStepsCount(value+"");
         }
     }
 
     @Override
     public void onConnected(Bundle bundle) {
-        DataSourcesRequest dataSourceRequest = new DataSourcesRequest.Builder()
-                .setDataTypes(DataType.TYPE_STEP_COUNT_CUMULATIVE)
-                .setDataSourceTypes(DataSource.TYPE_RAW)
-                .build();
-
-        ResultCallback<DataSourcesResult> dataSourcesResultCallback = new ResultCallback<DataSourcesResult>() {
-            @Override
-            public void onResult(DataSourcesResult dataSourcesResult) {
-                for (DataSource dataSource : dataSourcesResult.getDataSources()) {
-                    if (DataType.TYPE_STEP_COUNT_CUMULATIVE.equals(dataSource.getDataType())) {
-                        registerFitnessDataListener(dataSource, DataType.TYPE_STEP_COUNT_CUMULATIVE);
-                    }
-                }
-            }
-        };
-
-        Fitness.SensorsApi.findDataSources(mApiClient, dataSourceRequest)
-                .setResultCallback(dataSourcesResultCallback);
+        setUpCountStepSensor();
     }
 
+    private void setUpCountStepSensor() {
+
+        SensorRequest sensorRequest = new SensorRequest.Builder()
+                .setDataType(DataType.TYPE_STEP_COUNT_DELTA)
+                .setSamplingRate(1, TimeUnit.SECONDS)
+                .build();
+        PendingResult<Status> regResult = Fitness.SensorsApi.add(mApiClient, sensorRequest, this);
+        regResult.setResultCallback(new ResultCallback<Status>() {
+            @Override
+            public void onResult(@NonNull Status status) {
+                Log.e("GoogleFit", "count listener registered");
+            }
+        });
+    }
 
     private void registerFitnessDataListener(DataSource dataSource, DataType dataType) {
 
@@ -131,7 +119,7 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
                     @Override
                     public void onResult(Status status) {
                         if (status.isSuccess()) {
-                            Log.e("GoogleFit", "SensorApi successfully added");
+                            //  Log.e("GoogleFit", "SensorApi successfully added");
                         }
                     }
                 });
@@ -139,7 +127,6 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
 
     @Override
     public void destroy() {
-
         Fitness.SensorsApi.remove(mApiClient, this)
                 .setResultCallback(new ResultCallback<Status>() {
                     @Override
@@ -153,14 +140,11 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
 
     @Override
     public void pause() {
-
     }
 
     @Override
     public void resume() {
-
     }
-
 
     public GoogleApiClient getmApiClient() {
         return mApiClient;

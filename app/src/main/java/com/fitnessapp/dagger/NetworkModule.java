@@ -1,9 +1,6 @@
 package com.fitnessapp.dagger;
 
 
-import com.fitnessapp.data.network.ApiConstants;
-import com.fitnessapp.data.network.services.APIInterface;
-
 import javax.inject.Named;
 import javax.inject.Singleton;
 
@@ -22,11 +19,11 @@ public class NetworkModule {
 
     private final String BASE_URL_NAME = "BASE_URL_NAME";
 
-    @Provides
-    @Named(BASE_URL_NAME)
-    public String provideBaseUrl() {
-        return ApiConstants.BASE_URL;
-    }
+//    @Provides
+//    @Named(BASE_URL_NAME)
+//    public String provideBaseUrl() {
+//        return ApiConstants.BASE_URL;
+//    }
 
     @Provides
     @Singleton
@@ -65,11 +62,11 @@ public class NetworkModule {
                 .baseUrl(baseUrl).build();
     }
 
-    @Provides
-    @Singleton
-    APIInterface provideApiInterface(Retrofit retrofit) {
-        return retrofit.create(APIInterface.class);
-    }
+//    @Provides
+//    @Singleton
+//    APIInterface provideApiInterface(Retrofit retrofit) {
+//        return retrofit.create(APIInterface.class);
+//    }
 
 
 }

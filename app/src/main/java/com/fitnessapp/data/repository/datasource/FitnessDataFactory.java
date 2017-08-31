@@ -16,8 +16,8 @@ public class FitnessDataFactory {
     /**
      * Create {@link FitnessDataStore}
      */
-    public CloudFitnessDataStore create() {
-        return new CloudFitnessDataStore();
+    public LocalFitnessDataStore create() {
+        return new LocalFitnessDataStore();
     }
 
 

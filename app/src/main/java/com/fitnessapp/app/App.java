@@ -1,6 +1,7 @@
 package com.fitnessapp.app;
 
 import android.app.Application;
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
@@ -9,6 +10,7 @@ import com.fitnessapp.dagger.AppComponent;
 import com.fitnessapp.dagger.AppModule;
 import com.fitnessapp.dagger.DaggerAppComponent;
 import com.fitnessapp.dagger.NetworkModule;
+import com.fitnessapp.data.database.FitnessLocalDataBase;
 
 
 /**
@@ -21,13 +23,15 @@ public class App extends MultiDexApplication {
 
     private AppComponent applicationComponent;
 
+    private FitnessLocalDataBase fitnessLocalDataBase;
+
     @Override
     public void onCreate() {
         super.onCreate();
         MultiDex.install(this);
-
         context = getApplicationContext();
         initializeInjector();
+        initLocalDataBase();
     }
 
     public static Context getContext() {
@@ -41,8 +45,19 @@ public class App extends MultiDexApplication {
                 .build();
     }
 
-
     public AppComponent getApplicationComponent() {
         return this.applicationComponent;
     }
+
+    public FitnessLocalDataBase getFitnessLocalDataBase() {
+        if (fitnessLocalDataBase == null) {
+            initLocalDataBase();
+        }
+        return fitnessLocalDataBase;
+    }
+
+    private void initLocalDataBase() {
+        fitnessLocalDataBase = Room.databaseBuilder(context, FitnessLocalDataBase.class, AppConstants.DATABASE_NAME).build();
+    }
+
 }

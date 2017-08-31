@@ -1,11 +1,13 @@
 package com.fitnessapp.dagger;
 
 import android.app.Application;
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.SharedPreferences;
 
 
 import com.fitnessapp.app.AppConstants;
+import com.fitnessapp.data.database.FitnessLocalDataBase;
 import com.fitnessapp.data.executor.JobExecutor;
 import com.fitnessapp.data.repository.FitnessDataRepository;
 import com.fitnessapp.domain.executor.PostExecutionThread;
@@ -58,4 +60,6 @@ public class AppModule {
     FitnessRepository provideUserRepository(FitnessDataRepository articleRepository) {
         return articleRepository;
     }
+
+
 }

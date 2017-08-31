@@ -15,7 +15,6 @@ import dagger.Component;
 @Component(modules = {AppModule.class, NetworkModule.class})
 public interface AppComponent {
 
-    void inject(HomeActivity homeActivity);
-
+   // void inject(HomeActivity homeActivity);
 
 }

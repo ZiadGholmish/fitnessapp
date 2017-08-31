@@ -30,23 +30,16 @@ public class HomeActivity extends AppCompatActivity
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    @BindView(R.id.fab)
-    FloatingActionButton fab;
-
     @BindView(R.id.nav_view)
     NavigationView navView;
 
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
 
-    private static final int REQUEST_OAUTH = 1;
-
-    private static final String AUTH_PENDING = "auth_state_pending";
-
     @BindView(R.id.tv_steps_count)
     TextView tvStepsCount;
 
-    private boolean authInProgress = false;
+    private static final int REQUEST_OAUTH = 1;
 
     HomePresenter homePresenter;
 
@@ -55,39 +48,28 @@ public class HomeActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
         setSupportActionBar(toolbar);
         initDrawer();
-
         homePresenter = new HomePresenter();
         homePresenter.attachView(this);
         homePresenter.setupGoogleClient();
         homePresenter.connectToGoogle();
-
-        animateTextView(100 , 100000000 , tvStepsCount);
-
     }
-
 
     @Override
     public void initDrawer() {
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-
         drawerLayout.setDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
     }
 
     @Override
     public void showStepsCount(String stepsCount) {
-
-       // animateTextView(100 , 1000000 , tvStepsCount);
-       // tvStepsCount.setText(stepsCount);
+        tvStepsCount.setText(stepsCount);
     }
 
     @Override
@@ -108,7 +90,6 @@ public class HomeActivity extends AppCompatActivity
         homePresenter.destroy();
     }
 
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -118,7 +99,6 @@ public class HomeActivity extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_OAUTH) {
-            authInProgress = false;
             if (resultCode == RESULT_OK) {
                 if (!homePresenter.getmApiClient().isConnecting() && !homePresenter.getmApiClient().isConnected()) {
                     homePresenter.connectToGoogle();
@@ -150,19 +130,13 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-
         int id = item.getItemId();
-
         if (id == R.id.nav_camera) {
         }
 
@@ -171,21 +145,4 @@ public class HomeActivity extends AppCompatActivity
         return true;
     }
 
-
-    public void animateTextView(int initialValue, int finalValue, final TextView textview) {
-
-        ValueAnimator valueAnimator = ValueAnimator.ofInt(initialValue, finalValue);
-        valueAnimator.setDuration(1500);
-
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-
-                textview.setText(valueAnimator.getAnimatedValue().toString());
-
-            }
-        });
-        valueAnimator.start();
-
-    }
 }
