@@ -12,6 +12,9 @@ import android.widget.Toast;
 
 import com.fitnessapp.app.AbsPresenter;
 import com.fitnessapp.app.App;
+import com.fitnessapp.domain.interactors.DefaultObserver;
+import com.fitnessapp.domain.interactors.usecases.FetchAllStepCounts;
+import com.fitnessapp.domain.interactors.usecases.SaveStepCountUseCase;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -29,6 +32,8 @@ import com.google.android.gms.fitness.request.DataSourcesRequest;
 import com.google.android.gms.fitness.request.OnDataPointListener;
 import com.google.android.gms.fitness.request.SensorRequest;
 import com.google.android.gms.fitness.result.DataSourcesResult;
+
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -43,7 +48,13 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
 
     private GoogleApiClient mApiClient;
 
-    public HomePresenter() {
+    private SaveStepCountUseCase saveStepCountUseCase;
+    private FetchAllStepCounts fetchAllStepCounts;
+
+    public HomePresenter(SaveStepCountUseCase saveStepCountUseCase,
+                         FetchAllStepCounts fetchAllStepCounts) {
+        this.saveStepCountUseCase = saveStepCountUseCase;
+        this.fetchAllStepCounts = fetchAllStepCounts;
 
     }
 
@@ -81,8 +92,33 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
 
         for (final Field field : dataPoint.getDataType().getFields()) {
             final Value value = dataPoint.getValue(field);
+            mView.showStepsCount(value + "");
+        }
+    }
 
-            mView.showStepsCount(value+"");
+
+    void saveStepCount(int stepCount) {
+
+        saveStepCountUseCase.buildUseCaseObservable(new CategoriesObservable(), SaveStepCountUseCase.Params.forSaveStep(stepCount));
+
+    }
+
+    private final class SaveStepCount extends DefaultObserver<Void> {
+
+        @Override
+        public void onNext(Void aVoid) {
+            super.onNext(aVoid);
+        }
+
+        @Override
+        public void onComplete() {
+            super.onComplete();
+            Toast.makeText(App.getContext(), "Done Saving point", Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        public void onError(Throwable exception) {
+            super.onError(exception);
         }
     }
 

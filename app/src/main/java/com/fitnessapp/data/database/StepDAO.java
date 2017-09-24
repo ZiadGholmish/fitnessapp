@@ -13,6 +13,7 @@ import com.fitnessapp.data.model.StepEntity;
 import java.util.List;
 
 import io.reactivex.Flowable;
+import io.reactivex.Observable;
 
 /**
  * Created by carriagecompany on 8/29/17.
@@ -22,7 +23,7 @@ import io.reactivex.Flowable;
 public interface StepDAO {
 
     @Query("SELECT * FROM steps")
-    public Flowable<List<StepEntity>> getAll();
+    public Flowable<List<StepEntity>> getAllSteps();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public void insert(StepEntity stepEntity);
@@ -30,7 +31,7 @@ public interface StepDAO {
     @Update
     public void update(StepEntity stepEntity);
 
-    @Delete
-    public void delete(StepEntity stepEntity);
+    @Query("DELETE FROM steps")
+    public void resetCounter();
 
 }

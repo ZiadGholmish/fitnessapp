@@ -2,12 +2,18 @@ package com.fitnessapp.data.repository;
 
 
 import com.fitnessapp.data.model.DiscountEntity;
+import com.fitnessapp.data.model.StepEntity;
 import com.fitnessapp.data.model.mapper.DiscountEntityMapper;
 import com.fitnessapp.data.model.mapper.StepEntityMapper;
 import com.fitnessapp.data.repository.datasource.FitnessDataFactory;
 import com.fitnessapp.domain.repository.FitnessRepository;
 
+import java.util.List;
+
 import javax.inject.Inject;
+
+import io.reactivex.Flowable;
+import io.reactivex.Observable;
 
 /**
  * Created by carriagecompany on 8/6/17.
@@ -33,16 +39,17 @@ public class FitnessDataRepository implements FitnessRepository {
 
     @Override
     public void saveStepCount(int stepCount) {
+        fitnessDataFactory.create().saveStepCount(stepCount);
     }
 
     @Override
-    public int getTotalStepCount() {
-        return 0;
+    public Flowable<List<StepEntity>> getTotalStepCount() {
+        return fitnessDataFactory.create().getTotalStepCount();
     }
 
     @Override
     public void resetTotalCount() {
-
+        fitnessDataFactory.create().resetTotalCount();
     }
 
     @Override

@@ -1,11 +1,12 @@
 package com.fitnessapp.data.repository.datasource;
 
 
-
 import com.fitnessapp.data.model.DiscountEntity;
+import com.fitnessapp.data.model.StepEntity;
 
 import java.util.List;
 
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 
 /**
@@ -16,7 +17,7 @@ public interface FitnessDataStore {
 
     void saveStepCount(int stepCount);
 
-    int getTotalStepCount();
+    Flowable<List<StepEntity>> getTotalStepCount();
 
     void resetTotalCount();
 

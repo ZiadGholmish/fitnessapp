@@ -23,7 +23,7 @@ public class App extends MultiDexApplication {
 
     private AppComponent applicationComponent;
 
-    private FitnessLocalDataBase fitnessLocalDataBase;
+    private static FitnessLocalDataBase fitnessLocalDataBase;
 
     @Override
     public void onCreate() {
@@ -49,14 +49,14 @@ public class App extends MultiDexApplication {
         return this.applicationComponent;
     }
 
-    public FitnessLocalDataBase getFitnessLocalDataBase() {
+    public static  FitnessLocalDataBase getFitnessLocalDataBase() {
         if (fitnessLocalDataBase == null) {
             initLocalDataBase();
         }
         return fitnessLocalDataBase;
     }
 
-    private void initLocalDataBase() {
+    private static void initLocalDataBase() {
         fitnessLocalDataBase = Room.databaseBuilder(context, FitnessLocalDataBase.class, AppConstants.DATABASE_NAME).build();
     }
 
