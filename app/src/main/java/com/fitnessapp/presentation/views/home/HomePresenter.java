@@ -93,14 +93,15 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
         for (final Field field : dataPoint.getDataType().getFields()) {
             final Value value = dataPoint.getValue(field);
             mView.showStepsCount(value + "");
+            Log.e("the step count is " , value.toString());
+            saveStepCount(Integer.parseInt(value.toString()));
         }
     }
 
 
     void saveStepCount(int stepCount) {
-
-        saveStepCountUseCase.buildUseCaseObservable(new CategoriesObservable(), SaveStepCountUseCase.Params.forSaveStep(stepCount));
-
+        saveStepCountUseCase.execute(new HomePresenter.SaveStepCount(),
+                SaveStepCountUseCase.Params.forSaveStep(stepCount));
     }
 
     private final class SaveStepCount extends DefaultObserver<Void> {
