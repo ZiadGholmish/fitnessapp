@@ -52,8 +52,19 @@ public class FitnessDataRepository implements FitnessRepository {
         fitnessDataFactory.create().resetTotalCount();
     }
 
+
     @Override
-    public DiscountEntity getAvailableDiscount(int stepCount) {
-        return null;
+    public Flowable<List<DiscountEntity>> getAvailableDiscount(int stepCount) {
+        return fitnessDataFactory.create().getAvailableDiscounts(stepCount);
+    }
+
+    @Override
+    public Flowable<List<DiscountEntity>> getAllDiscounts() {
+        return fitnessDataFactory.create().getAllDiscounts();
+    }
+
+    @Override
+    public void saveDiscount(DiscountEntity discountEntity) {
+        fitnessDataFactory.create().saveDiscount(discountEntity);
     }
 }

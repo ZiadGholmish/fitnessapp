@@ -33,7 +33,17 @@ public class LocalFitnessDataStore implements FitnessDataStore {
     }
 
     @Override
-    public DiscountEntity getAvailableDiscount(int stepCount) {
-        return null;
+    public Flowable<List<DiscountEntity>> getAvailableDiscounts(int stepCount) {
+        return App.getFitnessLocalDataBase().discountDAO().getAvailableDiscounts();
+    }
+
+    @Override
+    public Flowable<List<DiscountEntity>> getAllDiscounts() {
+        return App.getFitnessLocalDataBase().discountDAO().getAllDiscounts();
+    }
+
+    @Override
+    public void saveDiscount(DiscountEntity discountEntity) {
+        App.getFitnessLocalDataBase().discountDAO().insert(discountEntity);
     }
 }

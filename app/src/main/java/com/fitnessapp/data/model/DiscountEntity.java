@@ -1,21 +1,35 @@
 package com.fitnessapp.data.model;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
 /**
  * Created by carriagecompany on 8/29/17.
  */
 
+@Entity(tableName = "discounts")
 public class DiscountEntity {
 
+    @PrimaryKey(autoGenerate = true)
+    private int uid;
+
+    @ColumnInfo(name = "store_name")
     String storeName;
 
+    @ColumnInfo(name = "desc")
     String desc;
 
+    @ColumnInfo(name = "image")
     String image;
 
+    @ColumnInfo(name = "meal_name")
     String mealName;
 
+    @ColumnInfo(name = "percentage")
     int percentage;
 
+    @ColumnInfo(name = "step_count")
     int stepCount;
 
     public String getStoreName() {

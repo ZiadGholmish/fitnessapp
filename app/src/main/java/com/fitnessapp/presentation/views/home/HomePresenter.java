@@ -227,7 +227,6 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
         }
     }
 
-
     private long getTotalSummtion(List<StepEntity> stepEntities) {
 
         long total = 0;

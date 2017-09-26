@@ -3,6 +3,7 @@ package com.fitnessapp.data.database;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.RoomDatabase;
 
+import com.fitnessapp.data.model.DiscountEntity;
 import com.fitnessapp.data.model.StepEntity;
 
 
@@ -13,4 +14,5 @@ import com.fitnessapp.data.model.StepEntity;
 @Database(entities = {StepEntity.class}, version = 1)
 public abstract class FitnessLocalDataBase extends RoomDatabase {
     public abstract StepDAO stepDAO();
+    public abstract DiscountDAO discountDAO();
 }

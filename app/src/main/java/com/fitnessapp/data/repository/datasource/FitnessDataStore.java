@@ -21,6 +21,10 @@ public interface FitnessDataStore {
 
     void resetTotalCount();
 
-    DiscountEntity getAvailableDiscount(int stepCount);
+    Flowable<List<DiscountEntity>> getAvailableDiscounts(int stepCount);
+
+    Flowable<List<DiscountEntity>> getAllDiscounts();
+
+    void saveDiscount(DiscountEntity discountEntity);
 
 }
