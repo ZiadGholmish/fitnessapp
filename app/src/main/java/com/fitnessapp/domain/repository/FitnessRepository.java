@@ -27,5 +27,4 @@ public interface FitnessRepository {
 
     void saveDiscount(DiscountEntity discountEntity);
 
-
 }

@@ -128,6 +128,8 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
             public void onResult(@NonNull Status status) {
                 Log.e("GoogleFit", "count listener registered");
                 fetchAllStepCounts.execute(new HomePresenter.GetAllStepsCount(), null);
+                mView.showStepsCount("Congrats\nYou deserve it :D ");
+
 
             }
         });
@@ -208,11 +210,9 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
                     getTotalSummtion(stepEntities) + ""));
             mView.applyProgress((float) (getTotalSummtion(stepEntities)) / 100);
 
-            if (getTotalSummtion(stepEntities) > 100) {
+            if (getTotalSummtion(stepEntities) > 50) {
                 mApiClient.disconnect();
-
                 mView.showStepsCount("Congrats\nYou deserve it :D ");
-
             }
         }
 

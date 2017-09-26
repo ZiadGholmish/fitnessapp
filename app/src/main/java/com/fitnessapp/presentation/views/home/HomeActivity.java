@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.fitnessapp.R;
 import com.fitnessapp.app.App;
+import com.fitnessapp.presentation.views.discounts.DiscountsActivity;
 
 import javax.inject.Inject;
 
@@ -87,7 +88,8 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public void hideCounters() {
-        count_progress.setVisibility(View.GONE);
+        Intent intent = new Intent(HomeActivity.this, DiscountsActivity.class);
+        startActivity(intent);
     }
 
     @Override

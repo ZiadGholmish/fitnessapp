@@ -1,6 +1,7 @@
 package com.fitnessapp.dagger;
 
 
+import com.fitnessapp.presentation.views.discounts.DiscountsActivity;
 import com.fitnessapp.presentation.views.home.HomeActivity;
 
 import javax.inject.Singleton;
@@ -16,5 +17,5 @@ import dagger.Component;
 public interface AppComponent {
 
    void inject(HomeActivity homeActivity);
-
+   void inject(DiscountsActivity discountsActivity);
 }

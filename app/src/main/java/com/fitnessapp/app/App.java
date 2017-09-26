@@ -57,7 +57,7 @@ public class App extends MultiDexApplication {
     }
 
     private static void initLocalDataBase() {
-        fitnessLocalDataBase = Room.databaseBuilder(context, FitnessLocalDataBase.class, AppConstants.DATABASE_NAME).build();
+        fitnessLocalDataBase = Room.databaseBuilder(context, FitnessLocalDataBase.class, AppConstants.DATABASE_NAME).allowMainThreadQueries().build();
     }
 
 }

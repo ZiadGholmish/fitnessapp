@@ -29,6 +29,9 @@ public class DiscountEntity {
     @ColumnInfo(name = "percentage")
     int percentage;
 
+    @ColumnInfo(name = "price")
+    double price;
+
     @ColumnInfo(name = "step_count")
     int stepCount;
 
@@ -78,5 +81,21 @@ public class DiscountEntity {
 
     public void setStepCount(int stepCount) {
         this.stepCount = stepCount;
+    }
+
+    public int getUid() {
+        return uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }

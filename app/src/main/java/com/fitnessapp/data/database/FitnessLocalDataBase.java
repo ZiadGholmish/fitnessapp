@@ -11,7 +11,7 @@ import com.fitnessapp.data.model.StepEntity;
  * Created by carriagecompany on 8/29/17.
  */
 
-@Database(entities = {StepEntity.class}, version = 1)
+@Database(entities = {StepEntity.class , DiscountEntity.class}, version = 1)
 public abstract class FitnessLocalDataBase extends RoomDatabase {
     public abstract StepDAO stepDAO();
     public abstract DiscountDAO discountDAO();
