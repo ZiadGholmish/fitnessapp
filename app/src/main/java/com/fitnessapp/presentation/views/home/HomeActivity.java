@@ -20,9 +20,13 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.TextView;
 
 import com.fitnessapp.R;
+import com.fitnessapp.app.App;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import flepsik.github.com.progress_ring.ProgressRingView;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, HomeContract.View {
@@ -39,8 +43,12 @@ public class HomeActivity extends AppCompatActivity
     @BindView(R.id.tv_steps_count)
     TextView tvStepsCount;
 
+    @BindView(R.id.count_progress)
+    ProgressRingView count_progress;
+
     private static final int REQUEST_OAUTH = 1;
 
+    @Inject
     HomePresenter homePresenter;
 
     @Override
@@ -48,9 +56,9 @@ public class HomeActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        ((App) getApplicationContext()).getApplicationComponent().inject(this);
         setSupportActionBar(toolbar);
         initDrawer();
-        homePresenter = new HomePresenter();
         homePresenter.attachView(this);
         homePresenter.setupGoogleClient();
         homePresenter.connectToGoogle();
@@ -70,6 +78,16 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public void showStepsCount(String stepsCount) {
         tvStepsCount.setText(stepsCount);
+    }
+
+    @Override
+    public void applyProgress(float percentage) {
+        count_progress.setProgress(percentage);
+    }
+
+    @Override
+    public void hideCounters() {
+        count_progress.setVisibility(View.GONE);
     }
 
     @Override

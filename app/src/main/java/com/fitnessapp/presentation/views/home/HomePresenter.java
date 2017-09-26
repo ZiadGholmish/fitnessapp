@@ -10,11 +10,14 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.fitnessapp.R;
 import com.fitnessapp.app.AbsPresenter;
 import com.fitnessapp.app.App;
+import com.fitnessapp.data.model.StepEntity;
 import com.fitnessapp.domain.interactors.DefaultObserver;
 import com.fitnessapp.domain.interactors.usecases.FetchAllStepCounts;
 import com.fitnessapp.domain.interactors.usecases.SaveStepCountUseCase;
+import com.fitnessapp.utils.ResourcesUtil;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -36,6 +39,8 @@ import com.google.android.gms.fitness.result.DataSourcesResult;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import javax.inject.Inject;
+
 /**
  * Created by carriagecompany on 8/28/17.
  */
@@ -49,8 +54,10 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
     private GoogleApiClient mApiClient;
 
     private SaveStepCountUseCase saveStepCountUseCase;
+
     private FetchAllStepCounts fetchAllStepCounts;
 
+    @Inject
     public HomePresenter(SaveStepCountUseCase saveStepCountUseCase,
                          FetchAllStepCounts fetchAllStepCounts) {
         this.saveStepCountUseCase = saveStepCountUseCase;
@@ -92,8 +99,7 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
 
         for (final Field field : dataPoint.getDataType().getFields()) {
             final Value value = dataPoint.getValue(field);
-            mView.showStepsCount(value + "");
-            Log.e("the step count is " , value.toString());
+            Log.e("the step count is ", value.toString());
             saveStepCount(Integer.parseInt(value.toString()));
         }
     }
@@ -104,24 +110,6 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
                 SaveStepCountUseCase.Params.forSaveStep(stepCount));
     }
 
-    private final class SaveStepCount extends DefaultObserver<Void> {
-
-        @Override
-        public void onNext(Void aVoid) {
-            super.onNext(aVoid);
-        }
-
-        @Override
-        public void onComplete() {
-            super.onComplete();
-            Toast.makeText(App.getContext(), "Done Saving point", Toast.LENGTH_LONG).show();
-        }
-
-        @Override
-        public void onError(Throwable exception) {
-            super.onError(exception);
-        }
-    }
 
     @Override
     public void onConnected(Bundle bundle) {
@@ -139,6 +127,8 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
             @Override
             public void onResult(@NonNull Status status) {
                 Log.e("GoogleFit", "count listener registered");
+                fetchAllStepCounts.execute(new HomePresenter.GetAllStepsCount(), null);
+
             }
         });
     }
@@ -185,5 +175,65 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
 
     public GoogleApiClient getmApiClient() {
         return mApiClient;
+    }
+
+    private final class SaveStepCount extends DefaultObserver<Void> {
+
+        @Override
+        public void onNext(Void aVoid) {
+            super.onNext(aVoid);
+            Toast.makeText(App.getContext(), "Done Saving point", Toast.LENGTH_LONG).show();
+            fetchAllStepCounts.execute(new HomePresenter.GetAllStepsCount(), null);
+        }
+
+        @Override
+        public void onComplete() {
+            super.onComplete();
+        }
+
+        @Override
+        public void onError(Throwable exception) {
+            super.onError(exception);
+        }
+    }
+
+
+    private final class GetAllStepsCount extends DefaultObserver<List<StepEntity>> {
+
+        @Override
+        public void onNext(List<StepEntity> stepEntities) {
+            super.onNext(stepEntities);
+
+            mView.showStepsCount(String.format(ResourcesUtil.getString(R.string.step_place_holder),
+                    getTotalSummtion(stepEntities) + ""));
+            mView.applyProgress((float) (getTotalSummtion(stepEntities)) / 100);
+
+            if (getTotalSummtion(stepEntities) > 100) {
+                mApiClient.disconnect();
+
+                mView.showStepsCount("Congrats\nYou deserve it :D ");
+
+            }
+        }
+
+        @Override
+        public void onComplete() {
+            super.onComplete();
+        }
+
+        @Override
+        public void onError(Throwable exception) {
+            super.onError(exception);
+        }
+    }
+
+
+    private long getTotalSummtion(List<StepEntity> stepEntities) {
+
+        long total = 0;
+        for (StepEntity stepEntity : stepEntities) {
+            total += stepEntity.getStepCount();
+        }
+        return total;
     }
 }

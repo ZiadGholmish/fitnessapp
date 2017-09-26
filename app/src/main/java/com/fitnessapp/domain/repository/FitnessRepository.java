@@ -15,13 +15,12 @@ import io.reactivex.Observable;
 
 public interface FitnessRepository {
 
-    void  saveStepCount(int stepCount);
+    void saveStepCount(int stepCount);
 
     Flowable<List<StepEntity>> getTotalStepCount();
 
-    void  resetTotalCount();
+    void resetTotalCount();
 
     DiscountEntity getAvailableDiscount(int stepCount);
-
 
 }

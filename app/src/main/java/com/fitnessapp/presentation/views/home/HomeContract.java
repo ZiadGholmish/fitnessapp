@@ -12,6 +12,10 @@ public interface HomeContract {
         void initDrawer();
 
         void showStepsCount(String stepsCount);
+
+        void applyProgress(float percentage);
+
+        void hideCounters();
     }
 
     interface Actions {
