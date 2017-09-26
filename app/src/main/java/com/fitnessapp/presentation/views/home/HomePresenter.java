@@ -208,11 +208,11 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
 
             mView.showStepsCount(String.format(ResourcesUtil.getString(R.string.step_place_holder),
                     getTotalSummtion(stepEntities) + ""));
-            mView.applyProgress((float) (getTotalSummtion(stepEntities)) / 100);
+            mView.applyProgress((float) (getTotalSummtion(stepEntities)) / 50);
 
             if (getTotalSummtion(stepEntities) > 50) {
                 mApiClient.disconnect();
-                mView.showStepsCount("Congrats\nYou deserve it :D ");
+                mView.hideCounters();
             }
         }
 

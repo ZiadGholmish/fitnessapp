@@ -24,6 +24,12 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:scrimVisibleHeightTrigger="30dp">
 
+            <ImageView
+                android:layout_width="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/back_img"
+                android:layout_height="match_parent" />
+
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
