@@ -4,6 +4,7 @@ import com.fitnessapp.data.model.DiscountEntity;
 import com.fitnessapp.domain.executor.PostExecutionThread;
 import com.fitnessapp.domain.executor.ThreadExecutor;
 import com.fitnessapp.domain.interactors.UseCase;
+import com.fitnessapp.domain.model.DiscountModel;
 import com.fitnessapp.domain.repository.FitnessRepository;
 
 import javax.inject.Inject;
@@ -29,21 +30,21 @@ public class SaveDiscountUseCase extends UseCase<Void, SaveDiscountUseCase.Param
 
     @Override
     public Observable<Void> buildUseCaseObservable(Params params) {
-        Preconditions.checkNotNull(params.discountEntity);
-        fitnessRepository.saveDiscount(params.discountEntity);
+        Preconditions.checkNotNull(params.discountModel);
+        fitnessRepository.saveDiscount(params.discountModel);
         return Observable.empty();
     }
 
     public static final class Params {
 
-        private DiscountEntity discountEntity;
+        private DiscountModel discountModel;
 
-        private Params(DiscountEntity discountEntity) {
-            this.discountEntity = discountEntity;
+        private Params(DiscountModel discountModel) {
+            this.discountModel = discountModel;
         }
 
-        public static SaveDiscountUseCase.Params forSaveDiscount(DiscountEntity discountEntity) {
-            return new SaveDiscountUseCase.Params(discountEntity);
+        public static SaveDiscountUseCase.Params forSaveDiscount(DiscountModel discountModel) {
+            return new SaveDiscountUseCase.Params(discountModel);
         }
     }
 

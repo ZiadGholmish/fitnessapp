@@ -34,4 +34,27 @@ public class AppSettingsEntityMapper {
         }
         return appSettingsModel;
     }
+
+
+    /**
+     * Transform a {@link AppSettingsModel} into an {@link AppSettingsEntity}.
+     *
+     * @param appSettingsModel Object to be transformed.
+     * @return {@link AppSettingsEntity} if valid {@link AppSettingsModel} otherwise null.
+     */
+    public AppSettingsEntity transform(AppSettingsModel appSettingsModel) {
+
+        AppSettingsEntity appSettingsEntity = null;
+
+        if (appSettingsModel != null) {
+            appSettingsEntity = new AppSettingsEntity();
+            appSettingsEntity.setUserAge(appSettingsModel.getUserAge());
+            appSettingsEntity.setCaloriesFactor(appSettingsModel.getCaloriesFactor());
+            appSettingsEntity.setUserWeight(appSettingsModel.getUserWeight());
+
+        }
+        return appSettingsEntity;
+    }
+
+
 }

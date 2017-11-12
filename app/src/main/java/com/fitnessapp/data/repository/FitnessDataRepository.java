@@ -3,9 +3,11 @@ package com.fitnessapp.data.repository;
 
 import com.fitnessapp.data.model.DiscountEntity;
 import com.fitnessapp.data.model.StepEntity;
+import com.fitnessapp.data.model.mapper.AppSettingsEntityMapper;
 import com.fitnessapp.data.model.mapper.DiscountEntityMapper;
 import com.fitnessapp.data.model.mapper.StepEntityMapper;
 import com.fitnessapp.data.repository.datasource.FitnessDataFactory;
+import com.fitnessapp.domain.model.AppSettingsModel;
 import com.fitnessapp.domain.model.DiscountModel;
 import com.fitnessapp.domain.model.StepModel;
 import com.fitnessapp.domain.repository.FitnessRepository;
@@ -29,14 +31,17 @@ public class FitnessDataRepository implements FitnessRepository {
 
     DiscountEntityMapper discountEntityMapper;
 
+    AppSettingsEntityMapper appSettingsEntityMapper;
+
     @Inject
     FitnessDataRepository(FitnessDataFactory fitnessDataFactory,
                           StepEntityMapper stepEntityMapper,
-                          DiscountEntityMapper discountEntityMapper) {
+                          DiscountEntityMapper discountEntityMapper, AppSettingsEntityMapper appSettingsEntityMapper) {
 
         this.fitnessDataFactory = fitnessDataFactory;
         this.stepEntityMapper = stepEntityMapper;
         this.discountEntityMapper = discountEntityMapper;
+        this.appSettingsEntityMapper = appSettingsEntityMapper;
     }
 
     @Override
@@ -71,5 +76,16 @@ public class FitnessDataRepository implements FitnessRepository {
     @Override
     public void saveDiscount(DiscountModel discountModel) {
         fitnessDataFactory.create().saveDiscount(discountEntityMapper.transform(discountModel));
+    }
+
+    @Override
+    public Flowable<AppSettingsModel> getAppSettings() {
+        return fitnessDataFactory.create().getAppSettings().map(appSettingsEntity ->
+                appSettingsEntityMapper.transform(appSettingsEntity));
+    }
+
+    @Override
+    public void saveAppSetting(AppSettingsModel appSettingsModel) {
+        fitnessDataFactory.create().saveSaveAppSettings(appSettingsEntityMapper.transform(appSettingsModel));
     }
 }

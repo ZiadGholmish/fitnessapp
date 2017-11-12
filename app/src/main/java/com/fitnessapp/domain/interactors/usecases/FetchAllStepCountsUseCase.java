@@ -4,6 +4,7 @@ import com.fitnessapp.data.model.StepEntity;
 import com.fitnessapp.domain.executor.PostExecutionThread;
 import com.fitnessapp.domain.executor.ThreadExecutor;
 import com.fitnessapp.domain.interactors.UseCase;
+import com.fitnessapp.domain.model.StepModel;
 import com.fitnessapp.domain.repository.FitnessRepository;
 
 import java.util.List;
@@ -19,19 +20,19 @@ import io.reactivex.internal.operators.observable.ObservableElementAt;
  * Created by carriagecompany on 9/24/17.
  */
 
-public class FetchAllStepCounts extends UseCase<List<StepEntity>, Void> {
+public class FetchAllStepCountsUseCase extends UseCase<List<StepModel>, Void> {
 
     private FitnessRepository fitnessRepository;
 
     @Inject
-    public FetchAllStepCounts(FitnessRepository fitnessRepository, ThreadExecutor threadExecutor,
-                              PostExecutionThread postExecutionThread) {
+    public FetchAllStepCountsUseCase(FitnessRepository fitnessRepository, ThreadExecutor threadExecutor,
+                                     PostExecutionThread postExecutionThread) {
         super(threadExecutor, postExecutionThread);
         this.fitnessRepository = fitnessRepository;
     }
 
     @Override
-    public Observable<List<StepEntity>> buildUseCaseObservable(Void aVoid) {
+    public Observable<List<StepModel>> buildUseCaseObservable(Void aVoid) {
         return fitnessRepository.getTotalStepCount().toObservable();
     }
 }

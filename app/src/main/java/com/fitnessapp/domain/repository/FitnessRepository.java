@@ -3,6 +3,7 @@ package com.fitnessapp.domain.repository;
 
 import com.fitnessapp.data.model.DiscountEntity;
 import com.fitnessapp.data.model.StepEntity;
+import com.fitnessapp.domain.model.AppSettingsModel;
 import com.fitnessapp.domain.model.DiscountModel;
 import com.fitnessapp.domain.model.StepModel;
 
@@ -29,4 +30,7 @@ public interface FitnessRepository {
 
     void saveDiscount(DiscountModel discountModel);
 
+    Flowable<AppSettingsModel> getAppSettings();
+
+    void saveAppSetting(AppSettingsModel appSettingsModel);
 }

@@ -5,14 +5,12 @@ import android.content.IntentSender;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.fitnessapp.R;
 import com.fitnessapp.app.AbsPresenter;
-import com.fitnessapp.app.App;
 import com.fitnessapp.data.model.StepEntity;
 import com.fitnessapp.domain.interactors.DefaultObserver;
-import com.fitnessapp.domain.interactors.usecases.FetchAllStepCounts;
+import com.fitnessapp.domain.interactors.usecases.FetchAllStepCountsUseCase;
 import com.fitnessapp.domain.interactors.usecases.ResetTotalStepCountUseCase;
 import com.fitnessapp.domain.interactors.usecases.SaveStepCountUseCase;
 import com.fitnessapp.utils.ResourcesUtil;
@@ -25,7 +23,6 @@ import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.fitness.Fitness;
 import com.google.android.gms.fitness.data.DataPoint;
-import com.google.android.gms.fitness.data.DataSource;
 import com.google.android.gms.fitness.data.DataType;
 import com.google.android.gms.fitness.data.Field;
 import com.google.android.gms.fitness.data.Value;
@@ -51,13 +48,13 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
 
     private SaveStepCountUseCase saveStepCountUseCase;
 
-    private FetchAllStepCounts fetchAllStepCounts;
+    private FetchAllStepCountsUseCase fetchAllStepCounts;
 
     private ResetTotalStepCountUseCase resetTotalStepCountUseCase;
 
     @Inject
     public HomePresenter(SaveStepCountUseCase saveStepCountUseCase,
-                         FetchAllStepCounts fetchAllStepCounts,
+                         FetchAllStepCountsUseCase fetchAllStepCounts,
                          ResetTotalStepCountUseCase resetTotalStepCountUseCase) {
         this.saveStepCountUseCase = saveStepCountUseCase;
         this.fetchAllStepCounts = fetchAllStepCounts;

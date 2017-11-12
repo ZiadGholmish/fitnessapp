@@ -1,19 +1,10 @@
 package com.fitnessapp.presentation.views.discounts;
 
-import android.widget.Toast;
-
-import com.fitnessapp.R;
 import com.fitnessapp.app.AbsPresenter;
-import com.fitnessapp.app.App;
 import com.fitnessapp.data.model.DiscountEntity;
-import com.fitnessapp.data.model.StepEntity;
 import com.fitnessapp.domain.interactors.DefaultObserver;
-import com.fitnessapp.domain.interactors.usecases.FetchAllStepCounts;
 import com.fitnessapp.domain.interactors.usecases.GetAllDiscountsUseCase;
 import com.fitnessapp.domain.interactors.usecases.SaveDiscountUseCase;
-import com.fitnessapp.domain.interactors.usecases.SaveStepCountUseCase;
-import com.fitnessapp.presentation.views.home.HomePresenter;
-import com.fitnessapp.utils.ResourcesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.List;
