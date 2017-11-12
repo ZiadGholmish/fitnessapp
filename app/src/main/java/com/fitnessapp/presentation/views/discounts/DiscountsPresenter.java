@@ -42,7 +42,7 @@ public class DiscountsPresenter extends AbsPresenter<DiscountsContract.View> imp
 
     @Override
     public void getDiscounts() {
-         //addDummtDiscounts();
+        addDummtDiscounts();
         getAllDiscountsUseCase.execute(new DiscountsPresenter.GetAllAvailableDiscount(), null);
     }
 

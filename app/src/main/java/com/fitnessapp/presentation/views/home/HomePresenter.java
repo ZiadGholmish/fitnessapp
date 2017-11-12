@@ -2,11 +2,8 @@ package com.fitnessapp.presentation.views.home;
 
 import android.app.Activity;
 import android.content.IntentSender;
-import android.hardware.Sensor;
 import android.os.Bundle;
-import android.service.carrier.CarrierMessagingService;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -16,6 +13,7 @@ import com.fitnessapp.app.App;
 import com.fitnessapp.data.model.StepEntity;
 import com.fitnessapp.domain.interactors.DefaultObserver;
 import com.fitnessapp.domain.interactors.usecases.FetchAllStepCounts;
+import com.fitnessapp.domain.interactors.usecases.ResetTotalStepCountUseCase;
 import com.fitnessapp.domain.interactors.usecases.SaveStepCountUseCase;
 import com.fitnessapp.utils.ResourcesUtil;
 import com.google.android.gms.common.ConnectionResult;
@@ -31,10 +29,8 @@ import com.google.android.gms.fitness.data.DataSource;
 import com.google.android.gms.fitness.data.DataType;
 import com.google.android.gms.fitness.data.Field;
 import com.google.android.gms.fitness.data.Value;
-import com.google.android.gms.fitness.request.DataSourcesRequest;
 import com.google.android.gms.fitness.request.OnDataPointListener;
 import com.google.android.gms.fitness.request.SensorRequest;
-import com.google.android.gms.fitness.result.DataSourcesResult;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -57,11 +53,15 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
 
     private FetchAllStepCounts fetchAllStepCounts;
 
+    private ResetTotalStepCountUseCase resetTotalStepCountUseCase;
+
     @Inject
     public HomePresenter(SaveStepCountUseCase saveStepCountUseCase,
-                         FetchAllStepCounts fetchAllStepCounts) {
+                         FetchAllStepCounts fetchAllStepCounts,
+                         ResetTotalStepCountUseCase resetTotalStepCountUseCase) {
         this.saveStepCountUseCase = saveStepCountUseCase;
         this.fetchAllStepCounts = fetchAllStepCounts;
+        this.resetTotalStepCountUseCase = resetTotalStepCountUseCase;
 
     }
 
@@ -82,7 +82,6 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
 
     @Override
     public void onConnectionSuspended(int i) {
-
     }
 
     @Override
@@ -99,7 +98,6 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
 
         for (final Field field : dataPoint.getDataType().getFields()) {
             final Value value = dataPoint.getValue(field);
-            Log.e("the step count is ", value.toString());
             saveStepCount(Integer.parseInt(value.toString()));
         }
     }
@@ -128,9 +126,6 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
             public void onResult(@NonNull Status status) {
                 Log.e("GoogleFit", "count listener registered");
                 fetchAllStepCounts.execute(new HomePresenter.GetAllStepsCount(), null);
-                mView.showStepsCount("Congrats\nYou deserve it :D ");
-
-
             }
         });
     }
@@ -200,6 +195,28 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
     }
 
 
+    private final class ResetTotalCount extends DefaultObserver<Void> {
+
+        @Override
+        public void onNext(Void aVoid) {
+            super.onNext(aVoid);
+
+            mApiClient.disconnect();
+            mView.hideCounters();
+        }
+
+        @Override
+        public void onComplete() {
+            super.onComplete();
+        }
+
+        @Override
+        public void onError(Throwable exception) {
+            super.onError(exception);
+        }
+    }
+
+
     private final class GetAllStepsCount extends DefaultObserver<List<StepEntity>> {
 
         @Override
@@ -207,12 +224,11 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
             super.onNext(stepEntities);
 
             mView.showStepsCount(String.format(ResourcesUtil.getString(R.string.step_place_holder),
-                    getTotalSummtion(stepEntities) + ""));
-            mView.applyProgress((float) (getTotalSummtion(stepEntities)) / 50);
+                    getTotalSummation(stepEntities) + ""));
+            mView.applyProgress((float) (getTotalSummation(stepEntities)) / 10);
 
-            if (getTotalSummtion(stepEntities) > 50) {
-                mApiClient.disconnect();
-                mView.hideCounters();
+            if (getTotalSummation(stepEntities) > 10) {
+                resetTotalStepCountUseCase.execute(new HomePresenter.ResetTotalCount(), null);
             }
         }
 
@@ -227,7 +243,7 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
         }
     }
 
-    private long getTotalSummtion(List<StepEntity> stepEntities) {
+    private long getTotalSummation(List<StepEntity> stepEntities) {
 
         long total = 0;
         for (StepEntity stepEntity : stepEntities) {

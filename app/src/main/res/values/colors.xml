@@ -5,4 +5,14 @@
     <color name="colorAccent">#FF4081</color>
     <color name="dim_back_color">#99000000</color>
     <color name="yellow_color">#13ADF1</color>
+
+    <color name="steps_progress_color">#72FA4D</color>
+
+    <color name="km_progress_color">#6FFBFC</color>
+
+    <color name="cal_progress_color">#EC3AD6</color>
+
+    <color name="sep_color">#30000000</color>
+
+
 </resources>

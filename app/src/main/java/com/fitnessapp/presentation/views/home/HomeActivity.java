@@ -63,6 +63,8 @@ public class HomeActivity extends AppCompatActivity
         homePresenter.attachView(this);
         homePresenter.setupGoogleClient();
         homePresenter.connectToGoogle();
+
+        hideCounters();
     }
 
     @Override
@@ -78,7 +80,7 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public void showStepsCount(String stepsCount) {
-        tvStepsCount.setText(stepsCount);
+        tvStepsCount.setText(stepsCount +"\n Steps" );
     }
 
     @Override

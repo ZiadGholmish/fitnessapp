@@ -7,49 +7,239 @@
     tools:context="com.fitnessapp.presentation.views.home.HomeActivity"
     tools:showIn="@layout/app_bar_main">
 
-    <ImageView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/back_img" />
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/dim_back_color"
+        android:background="@drawable/home_gradient_back"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingTop="?attr/actionBarSize">
 
-        <flepsik.github.com.progress_ring.ProgressRingView
-            android:id="@+id/count_progress"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="50dp"
-            app:animated="true"
-            app:animation_duration="500"
-            app:background_color="@android:color/transparent"
-            app:background_progress_color="#e4e7d3"
-            app:corner_edges="true"
-            app:progress="0.0"
-            app:progress_color="#07be7a"
-            app:progress_fill="false"
-            app:ring_width="5dp" />
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tv_steps_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="0"
-            android:textColor="@android:color/white"
-            android:textSize="70sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="90dp"
+                android:layout_gravity="center"
+                android:background="@drawable/icons_back_left"
+                android:drawableTop="@drawable/ic_if_steps_298873"
+                android:gravity="center"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:scaleType="fitCenter"
+                android:text="Steps"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/font_size_small" />
 
-    </FrameLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <flepsik.github.com.progress_ring.ProgressRingView
+                    android:id="@+id/count_progress"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center"
+                    app:animated="true"
+                    app:animation_duration="500"
+                    app:background_color="@android:color/transparent"
+                    app:background_progress_color="@color/dim_back_color"
+                    app:corner_edges="true"
+                    app:progress="0.5"
+                    app:progress_color="@color/steps_progress_color"
+                    app:progress_fill="false"
+                    app:ring_width="@dimen/progress_circle_ring_width" />
+
+                <TextView
+                    android:id="@+id/tv_steps_count"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="12,000"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/generic_padding"
+                android:layout_marginRight="@dimen/generic_padding"
+                android:gravity="center"
+                android:text="3,199\nSteps to go"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:background="@color/sep_color" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/generic_padding"
+                android:layout_marginRight="@dimen/generic_padding"
+                android:gravity="center"
+                android:text="4.60\nKm to go"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                android:textSize="14sp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <flepsik.github.com.progress_ring.ProgressRingView
+                    android:id="@+id/km_progress"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center"
+                    app:animated="true"
+                    app:animation_duration="500"
+                    app:background_color="@android:color/transparent"
+                    app:background_progress_color="@color/dim_back_color"
+                    app:corner_edges="true"
+                    app:progress="0.5"
+                    app:progress_color="@color/km_progress_color"
+                    app:progress_fill="false"
+                    app:ring_width="@dimen/progress_circle_ring_width" />
+
+                <TextView
+                    android:id="@+id/tv_km_count"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="12,000"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </FrameLayout>
+
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="90dp"
+                android:layout_gravity="center"
+                android:background="@drawable/icons_back_right"
+                android:drawableTop="@drawable/ic_distance"
+                android:gravity="center"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:scaleType="fitCenter"
+                android:text="Distance"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/font_size_small" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:background="@color/sep_color" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="90dp"
+                android:layout_gravity="center"
+                android:background="@drawable/icons_back_left"
+                android:drawableTop="@drawable/ic_healthy_food_diet"
+                android:gravity="center"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:scaleType="fitCenter"
+                android:text="Calories"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/font_size_small" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <flepsik.github.com.progress_ring.ProgressRingView
+                    android:id="@+id/cal_progress"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center"
+                    app:animated="true"
+                    app:animation_duration="500"
+                    app:background_color="@android:color/transparent"
+                    app:background_progress_color="@color/dim_back_color"
+                    app:corner_edges="true"
+                    app:progress="0.5"
+                    app:progress_color="@color/cal_progress_color"
+                    app:progress_fill="false"
+                    app:ring_width="@dimen/progress_circle_ring_width" />
+
+                <TextView
+                    android:id="@+id/tv_cal_count"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="12,000"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </FrameLayout>
+
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/generic_padding"
+                android:layout_marginRight="@dimen/generic_padding"
+                android:gravity="center"
+                android:text="400\nCalories to go"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>
