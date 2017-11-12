@@ -11,8 +11,12 @@ import com.fitnessapp.app.AbsPresenter;
 import com.fitnessapp.data.model.StepEntity;
 import com.fitnessapp.domain.interactors.DefaultObserver;
 import com.fitnessapp.domain.interactors.usecases.FetchAllStepCountsUseCase;
+import com.fitnessapp.domain.interactors.usecases.FetchAppSettingsUseCase;
 import com.fitnessapp.domain.interactors.usecases.ResetTotalStepCountUseCase;
+import com.fitnessapp.domain.interactors.usecases.SaveAppSettingsUseCase;
 import com.fitnessapp.domain.interactors.usecases.SaveStepCountUseCase;
+import com.fitnessapp.domain.model.AppSettingsModel;
+import com.fitnessapp.domain.model.StepModel;
 import com.fitnessapp.utils.ResourcesUtil;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.Scopes;
@@ -43,22 +47,24 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
         GoogleApiClient.OnConnectionFailedListener {
 
     private static final int REQUEST_OAUTH = 1;
-
     private GoogleApiClient mApiClient;
-
     private SaveStepCountUseCase saveStepCountUseCase;
-
     private FetchAllStepCountsUseCase fetchAllStepCounts;
-
     private ResetTotalStepCountUseCase resetTotalStepCountUseCase;
+    private SaveAppSettingsUseCase saveAppSettingsUseCase;
+    private FetchAppSettingsUseCase fetchAppSettingsUseCase;
 
     @Inject
     public HomePresenter(SaveStepCountUseCase saveStepCountUseCase,
                          FetchAllStepCountsUseCase fetchAllStepCounts,
-                         ResetTotalStepCountUseCase resetTotalStepCountUseCase) {
+                         ResetTotalStepCountUseCase resetTotalStepCountUseCase,
+                         SaveAppSettingsUseCase saveAppSettingsUseCase,
+                         FetchAppSettingsUseCase fetchAppSettingsUseCase) {
         this.saveStepCountUseCase = saveStepCountUseCase;
         this.fetchAllStepCounts = fetchAllStepCounts;
         this.resetTotalStepCountUseCase = resetTotalStepCountUseCase;
+        this.saveAppSettingsUseCase = saveAppSettingsUseCase;
+        this.fetchAppSettingsUseCase = fetchAppSettingsUseCase;
 
     }
 
@@ -143,11 +149,9 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
     public void resume() {
     }
 
-
     public GoogleApiClient getmApiClient() {
         return mApiClient;
     }
-
 
     void saveStepCount(int stepCount) {
         saveStepCountUseCase.execute(new HomePresenter.SaveStepCount(),
@@ -195,17 +199,17 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
     }
 
 
-    private final class GetAllStepsCount extends DefaultObserver<List<StepEntity>> {
+    private final class GetAllStepsCount extends DefaultObserver<List<StepModel>> {
 
         @Override
-        public void onNext(List<StepEntity> stepEntities) {
-            super.onNext(stepEntities);
+        public void onNext(List<StepModel> stepModels) {
+            super.onNext(stepModels);
 
             mView.showStepsCount(String.format(ResourcesUtil.getString(R.string.step_place_holder),
-                    getTotalSummation(stepEntities) + ""));
-            mView.applyProgress((float) (getTotalSummation(stepEntities)) / 100);
+                    getTotalSummation(stepModels) + ""));
+            mView.applyProgress((float) (getTotalSummation(stepModels)) / 100);
 
-            if (getTotalSummation(stepEntities) > 100) {
+            if (getTotalSummation(stepModels) > 100) {
                 resetTotalStepCountUseCase.execute(new HomePresenter.ResetTotalCount(), null);
             }
         }
@@ -221,11 +225,33 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
         }
     }
 
-    private long getTotalSummation(List<StepEntity> stepEntities) {
 
+    private final class GetAppSettings extends DefaultObserver<AppSettingsModel> {
+
+        @Override
+        public void onNext(AppSettingsModel appSettingsModel) {
+            super.onNext(appSettingsModel);
+
+            if (appSettingsModel == null) {
+
+            }
+        }
+
+        @Override
+        public void onComplete() {
+            super.onComplete();
+        }
+
+        @Override
+        public void onError(Throwable exception) {
+            super.onError(exception);
+        }
+    }
+
+    private long getTotalSummation(List<StepModel> stepModels) {
         long total = 0;
-        for (StepEntity stepEntity : stepEntities) {
-            total += stepEntity.getStepCount();
+        for (StepModel stepModel : stepModels) {
+            total += stepModel.getStepCount();
         }
         return total;
     }
