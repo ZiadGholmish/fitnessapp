@@ -103,12 +103,6 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
     }
 
 
-    void saveStepCount(int stepCount) {
-        saveStepCountUseCase.execute(new HomePresenter.SaveStepCount(),
-                SaveStepCountUseCase.Params.forSaveStep(stepCount));
-    }
-
-
     @Override
     public void onConnected(Bundle bundle) {
         setUpCountStepSensor();
@@ -130,24 +124,6 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
         });
     }
 
-    private void registerFitnessDataListener(DataSource dataSource, DataType dataType) {
-
-        SensorRequest request = new SensorRequest.Builder()
-                .setDataSource(dataSource)
-                .setDataType(dataType)
-                .setSamplingRate(1, TimeUnit.SECONDS)
-                .build();
-
-        Fitness.SensorsApi.add(mApiClient, request, this)
-                .setResultCallback(new ResultCallback<Status>() {
-                    @Override
-                    public void onResult(Status status) {
-                        if (status.isSuccess()) {
-                            //  Log.e("GoogleFit", "SensorApi successfully added");
-                        }
-                    }
-                });
-    }
 
     @Override
     public void destroy() {
@@ -170,8 +146,15 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
     public void resume() {
     }
 
+
     public GoogleApiClient getmApiClient() {
         return mApiClient;
+    }
+
+
+    void saveStepCount(int stepCount) {
+        saveStepCountUseCase.execute(new HomePresenter.SaveStepCount(),
+                SaveStepCountUseCase.Params.forSaveStep(stepCount));
     }
 
     private final class SaveStepCount extends DefaultObserver<Void> {
@@ -179,7 +162,6 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
         @Override
         public void onNext(Void aVoid) {
             super.onNext(aVoid);
-            Toast.makeText(App.getContext(), "Done Saving point", Toast.LENGTH_LONG).show();
             fetchAllStepCounts.execute(new HomePresenter.GetAllStepsCount(), null);
         }
 
@@ -200,9 +182,8 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
         @Override
         public void onNext(Void aVoid) {
             super.onNext(aVoid);
-
             mApiClient.disconnect();
-            mView.hideCounters();
+            mView.showDiscounts();
         }
 
         @Override
@@ -225,9 +206,9 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
 
             mView.showStepsCount(String.format(ResourcesUtil.getString(R.string.step_place_holder),
                     getTotalSummation(stepEntities) + ""));
-            mView.applyProgress((float) (getTotalSummation(stepEntities)) / 10);
+            mView.applyProgress((float) (getTotalSummation(stepEntities)) / 100);
 
-            if (getTotalSummation(stepEntities) > 10) {
+            if (getTotalSummation(stepEntities) > 100) {
                 resetTotalStepCountUseCase.execute(new HomePresenter.ResetTotalCount(), null);
             }
         }

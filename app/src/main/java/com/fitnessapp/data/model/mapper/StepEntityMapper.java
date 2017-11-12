@@ -5,6 +5,10 @@ import com.fitnessapp.domain.model.DiscountModel;
 import com.fitnessapp.data.model.StepEntity;
 import com.fitnessapp.domain.model.StepModel;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -37,6 +41,31 @@ public class StepEntityMapper {
 
         }
         return stepModel;
+    }
+
+
+    /**
+     * Transform a List of {@link StepEntity} into a Collection of {@link StepModel}.
+     *
+     * @param stepEntityCollection Object Collection to be transformed.
+     * @return {@link StepModel} if valid {@link StepEntity} otherwise null.
+     */
+    public List<StepModel> transform(Collection<StepEntity> stepEntityCollection) {
+
+        final List<StepModel> stepModels = new ArrayList<>();
+
+        if (stepEntityCollection != null) {
+
+            for (StepEntity stepEntity : stepEntityCollection) {
+
+                final StepModel stepModel = transform(stepEntity);
+
+                if (stepModel != null) {
+                    stepModels.add(stepModel);
+                }
+            }
+        }
+        return stepModels;
     }
 
 }

@@ -6,6 +6,8 @@ import com.fitnessapp.data.model.StepEntity;
 import com.fitnessapp.data.model.mapper.DiscountEntityMapper;
 import com.fitnessapp.data.model.mapper.StepEntityMapper;
 import com.fitnessapp.data.repository.datasource.FitnessDataFactory;
+import com.fitnessapp.domain.model.DiscountModel;
+import com.fitnessapp.domain.model.StepModel;
 import com.fitnessapp.domain.repository.FitnessRepository;
 
 import java.util.List;
@@ -43,8 +45,9 @@ public class FitnessDataRepository implements FitnessRepository {
     }
 
     @Override
-    public Flowable<List<StepEntity>> getTotalStepCount() {
-        return fitnessDataFactory.create().getTotalStepCount();
+    public Flowable<List<StepModel>> getTotalStepCount() {
+        return fitnessDataFactory.create().getTotalStepCount().map(stepEntities ->
+                stepEntityMapper.transform(stepEntities));
     }
 
     @Override
@@ -54,17 +57,19 @@ public class FitnessDataRepository implements FitnessRepository {
 
 
     @Override
-    public Flowable<List<DiscountEntity>> getAvailableDiscount(int stepCount) {
-        return fitnessDataFactory.create().getAvailableDiscounts(stepCount);
+    public Flowable<List<DiscountModel>> getAvailableDiscount(int stepCount) {
+        return fitnessDataFactory.create().getAvailableDiscounts(stepCount).map(
+                discountEntities -> discountEntityMapper.transform(discountEntities));
     }
 
     @Override
-    public Flowable<List<DiscountEntity>> getAllDiscounts() {
-        return fitnessDataFactory.create().getAllDiscounts();
+    public Flowable<List<DiscountModel>> getAllDiscounts() {
+        return fitnessDataFactory.create().getAllDiscounts().map(
+                discountEntities -> discountEntityMapper.transform(discountEntities));
     }
 
     @Override
-    public void saveDiscount(DiscountEntity discountEntity) {
-        fitnessDataFactory.create().saveDiscount(discountEntity);
+    public void saveDiscount(DiscountModel discountModel) {
+        fitnessDataFactory.create().saveDiscount(discountEntityMapper.transform(discountModel));
     }
 }

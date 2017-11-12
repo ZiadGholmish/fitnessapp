@@ -1,8 +1,10 @@
 package com.fitnessapp.data.repository.datasource;
 
 
+import com.fitnessapp.data.model.AppSettingsEntity;
 import com.fitnessapp.data.model.DiscountEntity;
 import com.fitnessapp.data.model.StepEntity;
+import com.fitnessapp.domain.model.AppSettingsModel;
 
 import java.util.List;
 
@@ -26,5 +28,9 @@ public interface FitnessDataStore {
     Flowable<List<DiscountEntity>> getAllDiscounts();
 
     void saveDiscount(DiscountEntity discountEntity);
+
+    void saveSaveAppSettings(AppSettingsEntity appSettingsEntity);
+
+    Flowable<AppSettingsEntity> getAppSettings();
 
 }

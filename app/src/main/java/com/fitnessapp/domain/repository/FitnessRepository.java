@@ -3,6 +3,8 @@ package com.fitnessapp.domain.repository;
 
 import com.fitnessapp.data.model.DiscountEntity;
 import com.fitnessapp.data.model.StepEntity;
+import com.fitnessapp.domain.model.DiscountModel;
+import com.fitnessapp.domain.model.StepModel;
 
 import java.util.List;
 
@@ -17,14 +19,14 @@ public interface FitnessRepository {
 
     void saveStepCount(int stepCount);
 
-    Flowable<List<StepEntity>> getTotalStepCount();
+    Flowable<List<StepModel>> getTotalStepCount();
 
     void resetTotalCount();
 
-    Flowable<List<DiscountEntity>> getAvailableDiscount(int stepCount);
+    Flowable<List<DiscountModel>> getAvailableDiscount(int stepCount);
 
-    Flowable<List<DiscountEntity>> getAllDiscounts();
+    Flowable<List<DiscountModel>> getAllDiscounts();
 
-    void saveDiscount(DiscountEntity discountEntity);
+    void saveDiscount(DiscountModel discountModel);
 
 }

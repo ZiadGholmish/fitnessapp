@@ -15,7 +15,7 @@ public interface HomeContract {
 
         void applyProgress(float percentage);
 
-        void hideCounters();
+        void showDiscounts();
     }
 
     interface Actions {

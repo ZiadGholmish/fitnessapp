@@ -1,12 +1,8 @@
 package com.fitnessapp.presentation.views.home;
 
-import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -15,8 +11,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.TextView;
 
 import com.fitnessapp.R;
@@ -64,7 +58,7 @@ public class HomeActivity extends AppCompatActivity
         homePresenter.setupGoogleClient();
         homePresenter.connectToGoogle();
 
-        hideCounters();
+        showDiscounts();
     }
 
     @Override
@@ -89,7 +83,7 @@ public class HomeActivity extends AppCompatActivity
     }
 
     @Override
-    public void hideCounters() {
+    public void showDiscounts() {
         Intent intent = new Intent(HomeActivity.this, DiscountsActivity.class);
         startActivity(intent);
     }
