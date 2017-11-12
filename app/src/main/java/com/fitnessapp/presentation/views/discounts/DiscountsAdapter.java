@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.fitnessapp.R;
 import com.fitnessapp.data.model.DiscountEntity;
+import com.fitnessapp.domain.model.DiscountModel;
 import com.fitnessapp.utils.ResourcesUtil;
 import com.squareup.picasso.Picasso;
 
@@ -28,12 +29,12 @@ import butterknife.ButterKnife;
 public class DiscountsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context context;
-    private List<DiscountEntity> discountEntities;
+    private List<DiscountModel> discountEntities;
     private static final int NORMAL_ITEM = 0;
 
     OnDiscountClickInterface onDiscountClickInterface;
 
-    public DiscountsAdapter(Context context, List<DiscountEntity> discountEntities, OnDiscountClickInterface onDiscountClickInterface) {
+    public DiscountsAdapter(Context context, List<DiscountModel> discountEntities, OnDiscountClickInterface onDiscountClickInterface) {
         this.context = context;
         this.discountEntities = discountEntities;
         this.onDiscountClickInterface = onDiscountClickInterface;
@@ -54,18 +55,18 @@ public class DiscountsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         if (getItemViewType(holder.getAdapterPosition()) == NORMAL_ITEM) {
             DiscountViewHolder discountViewHolder = (DiscountViewHolder) holder;
-            DiscountEntity discountEntity = discountEntities.get(holder.getAdapterPosition());
+            DiscountModel discountEntity = discountEntities.get(holder.getAdapterPosition());
             showData(discountViewHolder, discountEntity);
         }
     }
 
 
-    void showData(DiscountViewHolder discountViewHolder, DiscountEntity discountEntity) {
+    void showData(DiscountViewHolder discountViewHolder, DiscountModel discountEntity) {
 
         Picasso.with(context).load(discountEntity.getImage()).into(discountViewHolder.meal_image);
         discountViewHolder.meal_name.setText(discountEntity.getMealName());
         discountViewHolder.meal_desc.setText(discountEntity.getDesc());
-        discountViewHolder.meal_price.setText(String.format(ResourcesUtil.getString(R.string.price_label) , discountEntity.getPrice() + ""));
+        discountViewHolder.meal_price.setText(String.format(ResourcesUtil.getString(R.string.price_label), discountEntity.getPrice() + ""));
     }
 
 

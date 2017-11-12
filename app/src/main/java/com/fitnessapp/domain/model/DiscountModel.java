@@ -18,6 +18,8 @@ public class DiscountModel {
 
     int stepCount;
 
+    int price;
+
     public String getStoreName() {
         return storeName;
     }
@@ -64,5 +66,13 @@ public class DiscountModel {
 
     public void setStepCount(int stepCount) {
         this.stepCount = stepCount;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 }

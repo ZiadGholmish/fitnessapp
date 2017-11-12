@@ -5,6 +5,7 @@ import com.fitnessapp.data.model.DiscountEntity;
 import com.fitnessapp.domain.interactors.DefaultObserver;
 import com.fitnessapp.domain.interactors.usecases.GetAllDiscountsUseCase;
 import com.fitnessapp.domain.interactors.usecases.SaveDiscountUseCase;
+import com.fitnessapp.domain.model.DiscountModel;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.List;
@@ -52,10 +53,10 @@ public class DiscountsPresenter extends AbsPresenter<DiscountsContract.View> imp
     }
 
 
-    private final class GetAllAvailableDiscount extends DefaultObserver<List<DiscountEntity>> {
+    private final class GetAllAvailableDiscount extends DefaultObserver<List<DiscountModel>> {
 
         @Override
-        public void onNext(List<DiscountEntity> discountEntities) {
+        public void onNext(List<DiscountModel> discountEntities) {
             super.onNext(discountEntities);
             mView.showDiscounts(discountEntities);
         }
@@ -75,7 +76,7 @@ public class DiscountsPresenter extends AbsPresenter<DiscountsContract.View> imp
     void addDummtDiscounts() {
 
 
-        DiscountEntity discountEntity1 = new DiscountEntity();
+        DiscountModel discountEntity1 = new DiscountModel();
 
         discountEntity1.setStepCount(50);
         discountEntity1.setStoreName("LOADED SPAGHETTI");
@@ -93,7 +94,7 @@ public class DiscountsPresenter extends AbsPresenter<DiscountsContract.View> imp
         discountEntity1.setPercentage(10);
 
 
-        DiscountEntity discountEntity2 = new DiscountEntity();
+        DiscountModel discountEntity2 = new DiscountModel();
         discountEntity2.setStepCount(60);
         discountEntity2.setStoreName("BEEF AND VEGGIE SALAD BOWL");
         discountEntity2.setDesc("2 Tbsp dry red quinoa\n" +
@@ -110,7 +111,7 @@ public class DiscountsPresenter extends AbsPresenter<DiscountsContract.View> imp
         discountEntity2.setPercentage(20);
 
 
-        DiscountEntity discountEntity3 = new DiscountEntity();
+        DiscountModel discountEntity3 = new DiscountModel();
         discountEntity3.setStepCount(70);
         discountEntity3.setStoreName("HALF-HOMEMADE SOUP WITH ASPARAGUS");
         discountEntity3.setDesc("2 Tbsp dry red quinoa\n" +

@@ -2,15 +2,15 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "77eaa663c46918576f230b0ee827fb67",
+    "identityHash": "7218adf6bcf089820a76205e9f58c332",
     "entities": [
       {
         "tableName": "steps",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `step_count` INTEGER NOT NULL, `date` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`date` INTEGER NOT NULL, `step_count` INTEGER NOT NULL, `uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)",
         "fields": [
           {
-            "fieldPath": "uid",
-            "columnName": "uid",
+            "fieldPath": "date",
+            "columnName": "date",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -21,8 +21,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "date",
-            "columnName": "date",
+            "fieldPath": "uid",
+            "columnName": "uid",
             "affinity": "INTEGER",
             "notNull": true
           }
@@ -38,20 +38,8 @@
       },
       {
         "tableName": "discounts",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `store_name` TEXT, `desc` TEXT, `image` TEXT, `meal_name` TEXT, `percentage` INTEGER NOT NULL, `price` REAL NOT NULL, `step_count` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`desc` TEXT, `image` TEXT, `meal_name` TEXT, `percentage` INTEGER NOT NULL, `price` REAL NOT NULL, `step_count` INTEGER NOT NULL, `store_name` TEXT, `uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)",
         "fields": [
-          {
-            "fieldPath": "uid",
-            "columnName": "uid",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "storeName",
-            "columnName": "store_name",
-            "affinity": "TEXT",
-            "notNull": false
-          },
           {
             "fieldPath": "desc",
             "columnName": "desc",
@@ -87,6 +75,18 @@
             "columnName": "step_count",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "storeName",
+            "columnName": "store_name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "uid",
+            "columnName": "uid",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -100,18 +100,18 @@
       },
       {
         "tableName": "settings",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `user_weight` REAL NOT NULL, `user_age` INTEGER NOT NULL, `calories_factor` REAL NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`calories_factor` REAL NOT NULL, `uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `user_age` INTEGER NOT NULL, `user_weight` REAL NOT NULL)",
         "fields": [
+          {
+            "fieldPath": "caloriesFactor",
+            "columnName": "calories_factor",
+            "affinity": "REAL",
+            "notNull": true
+          },
           {
             "fieldPath": "uid",
             "columnName": "uid",
             "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "userWeight",
-            "columnName": "user_weight",
-            "affinity": "REAL",
             "notNull": true
           },
           {
@@ -121,8 +121,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "caloriesFactor",
-            "columnName": "calories_factor",
+            "fieldPath": "userWeight",
+            "columnName": "user_weight",
             "affinity": "REAL",
             "notNull": true
           }
@@ -139,7 +139,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"77eaa663c46918576f230b0ee827fb67\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"7218adf6bcf089820a76205e9f58c332\")"
     ]
   }
 }

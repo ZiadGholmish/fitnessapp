@@ -1,6 +1,7 @@
 package com.fitnessapp.presentation.views.discounts;
 
 import com.fitnessapp.data.model.DiscountEntity;
+import com.fitnessapp.domain.model.DiscountModel;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ public interface DiscountsContract {
 
     interface View {
 
-        void showDiscounts(List<DiscountEntity> discountEntities);
+        void showDiscounts(List<DiscountModel> discountEntities);
 
     }
 

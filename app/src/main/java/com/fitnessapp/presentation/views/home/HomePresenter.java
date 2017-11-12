@@ -8,7 +8,7 @@ import android.util.Log;
 
 import com.fitnessapp.R;
 import com.fitnessapp.app.AbsPresenter;
-import com.fitnessapp.data.model.StepEntity;
+import com.fitnessapp.app.AppConstants;
 import com.fitnessapp.domain.interactors.DefaultObserver;
 import com.fitnessapp.domain.interactors.usecases.FetchAllStepCountsUseCase;
 import com.fitnessapp.domain.interactors.usecases.FetchAppSettingsUseCase;
@@ -207,9 +207,9 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
 
             mView.showStepsCount(String.format(ResourcesUtil.getString(R.string.step_place_holder),
                     getTotalSummation(stepModels) + ""));
-            mView.applyProgress((float) (getTotalSummation(stepModels)) / 100);
+            mView.applyProgress((float) (getTotalSummation(stepModels)) / AppConstants.STEPS_IN_KILO_METER_TARGET);
 
-            if (getTotalSummation(stepModels) > 100) {
+            if (getTotalSummation(stepModels) > AppConstants.STEPS_IN_KILO_METER_TARGET) {
                 resetTotalStepCountUseCase.execute(new HomePresenter.ResetTotalCount(), null);
             }
         }

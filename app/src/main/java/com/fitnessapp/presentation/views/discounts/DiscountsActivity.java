@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import com.fitnessapp.R;
 import com.fitnessapp.app.App;
 import com.fitnessapp.data.model.DiscountEntity;
+import com.fitnessapp.domain.model.DiscountModel;
 import com.fitnessapp.presentation.views.home.HomeContract;
 import com.fitnessapp.presentation.views.home.HomePresenter;
 
@@ -39,7 +40,7 @@ public class DiscountsActivity extends AppCompatActivity implements DiscountsCon
     }
 
     @Override
-    public void showDiscounts(List<DiscountEntity> discountEntities) {
+    public void showDiscounts(List<DiscountModel> discountEntities) {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);

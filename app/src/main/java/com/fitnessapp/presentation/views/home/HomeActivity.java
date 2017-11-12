@@ -41,6 +41,18 @@ public class HomeActivity extends AppCompatActivity
     @BindView(R.id.count_progress)
     ProgressRingView count_progress;
 
+    @BindView(R.id.km_progress)
+    ProgressRingView km_progress;
+
+    @BindView(R.id.tv_km_count)
+    TextView tv_km_count;
+
+    @BindView(R.id.tv_cal_count)
+    TextView tv_cal_count;
+
+    @BindView(R.id.cal_progress)
+    ProgressRingView cal_progress;
+
     private static final int REQUEST_OAUTH = 1;
 
     @Inject
@@ -74,7 +86,7 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public void showStepsCount(String stepsCount) {
-        tvStepsCount.setText(stepsCount +"\n Steps" );
+        tvStepsCount.setText(stepsCount + "\n Steps");
     }
 
     @Override
