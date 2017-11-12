@@ -10,4 +10,12 @@
     <string name="step_place_holder">%1$s</string>
 
     <string name="price_label">%1$s KD</string>
+
+    <string name="steps_to_go">%1$s\nsteps to go</string>
+
+    <string name="km_to_go">%1$s\nkm to go</string>
+
+    <string name="cal_to_go">%1$s\ncal to go</string>
+
+    <string name="km_count">%1$s\nKM</string>
 </resources>

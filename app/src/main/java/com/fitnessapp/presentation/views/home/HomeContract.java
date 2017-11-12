@@ -13,9 +13,23 @@ public interface HomeContract {
 
         void showStepsCount(String stepsCount);
 
+        void showKMCount(float kms);
+
         void applyProgress(float percentage);
 
         void showDiscounts();
+
+        void showStepsRemaining(int stepsRemaining);
+
+        void applyKMProgress(float percentage);
+
+        void showKMRemaining(float kmRemaining);
+
+        void showCaloriesRemaining(int calories);
+
+        void applyCalories(float progress);
+
+        void showCaloriesCount(int calories);
     }
 
     interface Actions {

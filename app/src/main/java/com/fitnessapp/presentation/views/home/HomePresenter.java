@@ -14,10 +14,13 @@ import com.fitnessapp.domain.interactors.usecases.FetchAllStepCountsUseCase;
 import com.fitnessapp.domain.interactors.usecases.FetchAppSettingsUseCase;
 import com.fitnessapp.domain.interactors.usecases.ResetTotalStepCountUseCase;
 import com.fitnessapp.domain.interactors.usecases.SaveAppSettingsUseCase;
+import com.fitnessapp.domain.interactors.usecases.SaveDiscountUseCase;
 import com.fitnessapp.domain.interactors.usecases.SaveStepCountUseCase;
 import com.fitnessapp.domain.model.AppSettingsModel;
 import com.fitnessapp.domain.model.StepModel;
+import com.fitnessapp.presentation.views.discounts.DiscountsPresenter;
 import com.fitnessapp.utils.ResourcesUtil;
+import com.fitnessapp.utils.StringUtils;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -53,6 +56,7 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
     private ResetTotalStepCountUseCase resetTotalStepCountUseCase;
     private SaveAppSettingsUseCase saveAppSettingsUseCase;
     private FetchAppSettingsUseCase fetchAppSettingsUseCase;
+    private AppSettingsModel appSettingsModel = new AppSettingsModel();
 
     @Inject
     public HomePresenter(SaveStepCountUseCase saveStepCountUseCase,
@@ -66,6 +70,7 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
         this.saveAppSettingsUseCase = saveAppSettingsUseCase;
         this.fetchAppSettingsUseCase = fetchAppSettingsUseCase;
 
+        initAppSettings();
     }
 
     @Override
@@ -198,17 +203,16 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
         }
     }
 
-
     private final class GetAllStepsCount extends DefaultObserver<List<StepModel>> {
 
         @Override
         public void onNext(List<StepModel> stepModels) {
             super.onNext(stepModels);
 
-            mView.showStepsCount(String.format(ResourcesUtil.getString(R.string.step_place_holder),
-                    getTotalSummation(stepModels) + ""));
-            mView.applyProgress((float) (getTotalSummation(stepModels)) / AppConstants.STEPS_IN_KILO_METER_TARGET);
-
+            long totalSteps = getTotalSummation(stepModels);
+            handleSteps(totalSteps);
+            handleKMs(totalSteps);
+            handleCaloriesWithStepCount(totalSteps);
             if (getTotalSummation(stepModels) > AppConstants.STEPS_IN_KILO_METER_TARGET) {
                 resetTotalStepCountUseCase.execute(new HomePresenter.ResetTotalCount(), null);
             }
@@ -225,28 +229,45 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
         }
     }
 
+    void initAppSettings() {
 
-    private final class GetAppSettings extends DefaultObserver<AppSettingsModel> {
-
-        @Override
-        public void onNext(AppSettingsModel appSettingsModel) {
-            super.onNext(appSettingsModel);
-
-            if (appSettingsModel == null) {
-
-            }
-        }
-
-        @Override
-        public void onComplete() {
-            super.onComplete();
-        }
-
-        @Override
-        public void onError(Throwable exception) {
-            super.onError(exception);
-        }
+        appSettingsModel.setUserWeight(90);
+        appSettingsModel.setUserAge(26);
+        appSettingsModel.setCaloriesFactor(0.5f);
     }
+
+
+    void handleSteps(long totalSteps) {
+
+        mView.showStepsCount(String.format(ResourcesUtil.getString(R.string.step_place_holder), totalSteps + ""));
+        mView.applyProgress((float) (totalSteps / AppConstants.STEPS_IN_KILO_METER_TARGET));
+        mView.showStepsRemaining((int) (AppConstants.STEPS_IN_KILO_METER_TARGET - totalSteps));
+    }
+
+    void handleKMs(long totalSteps) {
+
+        float kmCount = (float) totalSteps / AppConstants.STEPS_IN_KILO_METER_TARGET;
+        float progress = (float) (totalSteps / AppConstants.STEPS_IN_KILO_METER_TARGET);
+        float remainingKMs = (float)
+                (AppConstants.STEPS_IN_KILO_METER_TARGET / AppConstants.STEPS_IN_KILO_METER)
+                - ((float) totalSteps / AppConstants.STEPS_IN_KILO_METER);
+        mView.showKMCount(kmCount);
+        mView.applyKMProgress(progress);
+        mView.showKMRemaining(remainingKMs);
+    }
+
+    void handleCaloriesWithStepCount(long totalSteps) {
+
+        double caloriePerMile = appSettingsModel.getCaloriesFactor() * appSettingsModel.getUserWeight();
+        double caloriePerStep = caloriePerMile / 1600;
+        int totalCaloriesBurned = (int) (totalSteps * caloriePerStep);
+
+        mView.applyCalories( totalCaloriesBurned / AppConstants.TARGET_CAOLORIES);
+        mView.showCaloriesCount(totalCaloriesBurned);
+        mView.showCaloriesRemaining(AppConstants.TARGET_CAOLORIES - totalCaloriesBurned);
+
+    }
+
 
     private long getTotalSummation(List<StepModel> stepModels) {
         long total = 0;

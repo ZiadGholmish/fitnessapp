@@ -16,6 +16,9 @@ import android.widget.TextView;
 import com.fitnessapp.R;
 import com.fitnessapp.app.App;
 import com.fitnessapp.presentation.views.discounts.DiscountsActivity;
+import com.fitnessapp.utils.ResourcesUtil;
+import com.fitnessapp.utils.SpannableUtils;
+import com.fitnessapp.utils.StringUtils;
 
 import javax.inject.Inject;
 
@@ -49,6 +52,15 @@ public class HomeActivity extends AppCompatActivity
 
     @BindView(R.id.tv_cal_count)
     TextView tv_cal_count;
+
+    @BindView(R.id.tv_steps_remaining)
+    TextView tv_steps_remaining;
+
+    @BindView(R.id.tv_km_remaining)
+    TextView tv_km_remaining;
+
+    @BindView(R.id.tv_cal_remaining)
+    TextView tv_cal_remaining;
 
     @BindView(R.id.cal_progress)
     ProgressRingView cal_progress;
@@ -86,12 +98,51 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public void showStepsCount(String stepsCount) {
-        tvStepsCount.setText(stepsCount + "\n Steps");
+        tvStepsCount.setText(SpannableUtils.formatValueWithLabel(stepsCount, " Steps"));
+    }
+
+
+    @Override
+    public void showKMCount(float kms) {
+        tv_km_count.setText(String.format(ResourcesUtil.getString(R.string.km_count), StringUtils.df.format(kms)));
     }
 
     @Override
     public void applyProgress(float percentage) {
         count_progress.setProgress(percentage);
+    }
+
+
+    @Override
+    public void showStepsRemaining(int stepsRemaining) {
+        tv_steps_remaining.setText(String.format(ResourcesUtil.getString(R.string.steps_to_go), stepsRemaining));
+    }
+
+    @Override
+    public void applyKMProgress(float percentage) {
+        km_progress.setProgress(percentage);
+    }
+
+    @Override
+    public void showKMRemaining(float kmRemaining) {
+        tv_km_remaining.setText(String.format(ResourcesUtil.getString(R.string.km_to_go), StringUtils.df.format(kmRemaining)));
+    }
+
+
+    @Override
+    public void showCaloriesRemaining(int calories) {
+        tv_cal_remaining.setText(String.format(ResourcesUtil.getString(R.string.cal_to_go),
+                StringUtils.df.format(calories)));
+    }
+
+    @Override
+    public void applyCalories(float progress) {
+        cal_progress.setProgress(progress);
+    }
+
+    @Override
+    public void showCaloriesCount(int calories) {
+        tv_cal_count.setText(SpannableUtils.formatValueWithLabel(calories + "", " Calories"));
     }
 
     @Override
