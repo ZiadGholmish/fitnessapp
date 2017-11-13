@@ -11,6 +11,7 @@ import com.fitnessapp.dagger.AppModule;
 import com.fitnessapp.dagger.DaggerAppComponent;
 import com.fitnessapp.dagger.NetworkModule;
 import com.fitnessapp.data.database.FitnessLocalDataBase;
+import com.fitnessapp.domain.model.AppSettingsModel;
 
 
 /**
@@ -24,6 +25,8 @@ public class App extends MultiDexApplication {
     private AppComponent applicationComponent;
 
     private static FitnessLocalDataBase fitnessLocalDataBase;
+
+    private static AppSettingsModel appSettingsModel;
 
     @Override
     public void onCreate() {
@@ -49,7 +52,7 @@ public class App extends MultiDexApplication {
         return this.applicationComponent;
     }
 
-    public static  FitnessLocalDataBase getFitnessLocalDataBase() {
+    public static FitnessLocalDataBase getFitnessLocalDataBase() {
         if (fitnessLocalDataBase == null) {
             initLocalDataBase();
         }
@@ -60,4 +63,11 @@ public class App extends MultiDexApplication {
         fitnessLocalDataBase = Room.databaseBuilder(context, FitnessLocalDataBase.class, AppConstants.DATABASE_NAME).fallbackToDestructiveMigration().allowMainThreadQueries().build();
     }
 
+    public static AppSettingsModel getAppSettingsModel() {
+        return appSettingsModel;
+    }
+
+    public static void setAppSettingsModel(AppSettingsModel appSettingsModel) {
+        App.appSettingsModel = appSettingsModel;
+    }
 }

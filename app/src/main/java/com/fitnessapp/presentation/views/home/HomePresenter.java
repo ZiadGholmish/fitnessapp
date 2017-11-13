@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.fitnessapp.R;
 import com.fitnessapp.app.AbsPresenter;
+import com.fitnessapp.app.App;
 import com.fitnessapp.app.AppConstants;
 import com.fitnessapp.domain.interactors.DefaultObserver;
 import com.fitnessapp.domain.interactors.usecases.FetchAllStepCountsUseCase;
@@ -56,7 +57,6 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
     private ResetTotalStepCountUseCase resetTotalStepCountUseCase;
     private SaveAppSettingsUseCase saveAppSettingsUseCase;
     private FetchAppSettingsUseCase fetchAppSettingsUseCase;
-    private AppSettingsModel appSettingsModel = new AppSettingsModel();
 
     @Inject
     public HomePresenter(SaveStepCountUseCase saveStepCountUseCase,
@@ -70,7 +70,6 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
         this.saveAppSettingsUseCase = saveAppSettingsUseCase;
         this.fetchAppSettingsUseCase = fetchAppSettingsUseCase;
 
-        initAppSettings();
     }
 
     @Override
@@ -229,14 +228,6 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
         }
     }
 
-    void initAppSettings() {
-
-        appSettingsModel.setUserWeight(90);
-        appSettingsModel.setUserAge(26);
-        appSettingsModel.setCaloriesFactor(0.5f);
-    }
-
-
     void handleSteps(long totalSteps) {
 
         mView.showStepsCount(String.format(ResourcesUtil.getString(R.string.step_place_holder), totalSteps + ""));
@@ -258,14 +249,13 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
 
     void handleCaloriesWithStepCount(long totalSteps) {
 
-        double caloriePerMile = appSettingsModel.getCaloriesFactor() * appSettingsModel.getUserWeight();
+        double caloriePerMile = App.getAppSettingsModel().getCaloriesFactor() * App.getAppSettingsModel().getUserWeight();
         double caloriePerStep = caloriePerMile / 1600;
         int totalCaloriesBurned = (int) (totalSteps * caloriePerStep);
 
         mView.applyCalories( totalCaloriesBurned / AppConstants.TARGET_CAOLORIES);
         mView.showCaloriesCount(totalCaloriesBurned);
         mView.showCaloriesRemaining(AppConstants.TARGET_CAOLORIES - totalCaloriesBurned);
-
     }
 
 

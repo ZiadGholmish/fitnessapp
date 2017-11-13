@@ -3,6 +3,7 @@ package com.fitnessapp.presentation.views.user;
 import android.util.Log;
 
 import com.fitnessapp.app.AbsPresenter;
+import com.fitnessapp.app.App;
 import com.fitnessapp.app.AppConstants;
 import com.fitnessapp.domain.interactors.DefaultObserver;
 import com.fitnessapp.domain.interactors.usecases.FetchAllStepCountsUseCase;
@@ -68,7 +69,7 @@ public class UserDetailsPresenter extends AbsPresenter<UserDetailsContract.View>
         @Override
         public void onNext(Void aVoid) {
             super.onNext(aVoid);
-            mView.openTrackScreen();
+            checkAppSettings();
         }
 
         @Override
@@ -90,8 +91,7 @@ public class UserDetailsPresenter extends AbsPresenter<UserDetailsContract.View>
         @Override
         public void onNext(AppSettingsModel appSettingsModel) {
             super.onNext(appSettingsModel);
-
-            Log.e("the app model", appSettingsModel.getFullName());
+            App.setAppSettingsModel(appSettingsModel);
             mView.openTrackScreen();
             mView.closeScreen();
         }

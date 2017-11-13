@@ -128,7 +128,6 @@ public class HomeActivity extends AppCompatActivity
         tv_km_remaining.setText(String.format(ResourcesUtil.getString(R.string.km_to_go), StringUtils.df.format(kmRemaining)));
     }
 
-
     @Override
     public void showCaloriesRemaining(int calories) {
         tv_cal_remaining.setText(String.format(ResourcesUtil.getString(R.string.cal_to_go),
@@ -143,6 +142,7 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public void showCaloriesCount(int calories) {
         tv_cal_count.setText(SpannableUtils.formatValueWithLabel(calories + "", " Calories"));
+
     }
 
     @Override
@@ -216,8 +216,6 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.nav_camera) {
-        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
