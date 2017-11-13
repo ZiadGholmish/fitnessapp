@@ -57,8 +57,8 @@ public class AppModule {
 
     @Provides
     @Singleton
-    FitnessRepository provideUserRepository(FitnessDataRepository articleRepository) {
-        return articleRepository;
+    FitnessRepository provideUserRepository(FitnessDataRepository fitnessDataRepository) {
+        return fitnessDataRepository;
     }
 
 

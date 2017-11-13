@@ -52,7 +52,7 @@ public class LocalFitnessDataStore implements FitnessDataStore {
 
     @Override
     public void saveSaveAppSettings(AppSettingsEntity appSettingsEntity) {
-        App.getFitnessLocalDataBase().appSettingsDAO().update(appSettingsEntity);
+        App.getFitnessLocalDataBase().appSettingsDAO().insert(appSettingsEntity);
     }
 
     @Override

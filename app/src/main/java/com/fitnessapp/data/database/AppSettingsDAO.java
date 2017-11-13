@@ -20,7 +20,7 @@ import io.reactivex.Flowable;
 @Dao
 public interface AppSettingsDAO {
 
-    @Query("SELECT * FROM settings Limit 1")
+    @Query("SELECT * FROM settings LIMIT 1")
     public Flowable<AppSettingsEntity> getAppSettings();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

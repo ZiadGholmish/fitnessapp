@@ -29,6 +29,8 @@ public class AppSettingsEntity {
     @ColumnInfo(name = "calories_factor")
     double caloriesFactor;
 
+    @ColumnInfo(name = "full_name")
+    String fullName;
 
     public int getUid() {
         return uid;
@@ -76,5 +78,13 @@ public class AppSettingsEntity {
 
     public void setCaloriesFactor(double caloriesFactor) {
         this.caloriesFactor = caloriesFactor;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 }

@@ -32,7 +32,7 @@ public class AppSettingsEntityMapper {
             appSettingsModel.setUserWeight(appSettingsEntity.getUserWeight());
             appSettingsModel.setHeight(appSettingsEntity.getHeight());
             appSettingsModel.setGender(appSettingsEntity.getGender());
-
+            appSettingsModel.setFullName(appSettingsEntity.getFullName());
         }
         return appSettingsModel;
     }
@@ -55,9 +55,9 @@ public class AppSettingsEntityMapper {
             appSettingsEntity.setUserWeight(appSettingsModel.getUserWeight());
             appSettingsEntity.setGender(appSettingsModel.getGender());
             appSettingsEntity.setHeight(appSettingsModel.getHeight());
-
+            appSettingsEntity.setFullName(appSettingsModel.getFullName());
         }
         return appSettingsEntity;
     }
-    
+
 }

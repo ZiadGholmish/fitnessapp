@@ -42,7 +42,7 @@ public class SaveAppSettingsUseCase extends UseCase<Void, SaveAppSettingsUseCase
             this.appSettingsModel = appSettingsModel;
         }
 
-        public static SaveAppSettingsUseCase.Params forSaveDiscount(AppSettingsModel appSettingsModel) {
+        public static SaveAppSettingsUseCase.Params forSaveAppSettings(AppSettingsModel appSettingsModel) {
             return new SaveAppSettingsUseCase.Params(appSettingsModel);
         }
     }

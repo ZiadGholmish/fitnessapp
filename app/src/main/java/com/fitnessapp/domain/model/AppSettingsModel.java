@@ -18,6 +18,8 @@ public class AppSettingsModel {
 
     int height;
 
+    String fullName;
+
     public int getUserWeight() {
         return userWeight;
     }
@@ -56,5 +58,13 @@ public class AppSettingsModel {
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 }
