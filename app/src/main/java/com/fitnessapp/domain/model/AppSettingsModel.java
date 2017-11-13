@@ -8,17 +8,21 @@ import android.arch.persistence.room.ColumnInfo;
 
 public class AppSettingsModel {
 
-    double userWeight;
+    int userWeight;
 
     int userAge;
 
     double caloriesFactor;
 
-    public double getUserWeight() {
+    int gender;
+
+    int height;
+
+    public int getUserWeight() {
         return userWeight;
     }
 
-    public void setUserWeight(double userWeight) {
+    public void setUserWeight(int userWeight) {
         this.userWeight = userWeight;
     }
 
@@ -36,5 +40,21 @@ public class AppSettingsModel {
 
     public void setCaloriesFactor(double caloriesFactor) {
         this.caloriesFactor = caloriesFactor;
+    }
+
+    public int getGender() {
+        return gender;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
     }
 }

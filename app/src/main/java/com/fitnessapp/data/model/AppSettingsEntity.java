@@ -15,13 +15,20 @@ public class AppSettingsEntity {
     private int uid;
 
     @ColumnInfo(name = "user_weight")
-    double userWeight;
+    int userWeight;
 
     @ColumnInfo(name = "user_age")
     int userAge;
 
+    @ColumnInfo(name = "gender")
+    int gender;
+
+    @ColumnInfo(name = "height")
+    int height;
+
     @ColumnInfo(name = "calories_factor")
     double caloriesFactor;
+
 
     public int getUid() {
         return uid;
@@ -31,11 +38,11 @@ public class AppSettingsEntity {
         this.uid = uid;
     }
 
-    public double getUserWeight() {
+    public int getUserWeight() {
         return userWeight;
     }
 
-    public void setUserWeight(double userWeight) {
+    public void setUserWeight(int userWeight) {
         this.userWeight = userWeight;
     }
 
@@ -45,6 +52,22 @@ public class AppSettingsEntity {
 
     public void setUserAge(int userAge) {
         this.userAge = userAge;
+    }
+
+    public int getGender() {
+        return gender;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
     }
 
     public double getCaloriesFactor() {

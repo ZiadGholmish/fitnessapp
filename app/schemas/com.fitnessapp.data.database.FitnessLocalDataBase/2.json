@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "7218adf6bcf089820a76205e9f58c332",
+    "identityHash": "9468676ac8e2d452bc7cb855c5f280d7",
     "entities": [
       {
         "tableName": "steps",
@@ -100,12 +100,24 @@
       },
       {
         "tableName": "settings",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`calories_factor` REAL NOT NULL, `uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `user_age` INTEGER NOT NULL, `user_weight` REAL NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`calories_factor` REAL NOT NULL, `gender` INTEGER NOT NULL, `height` INTEGER NOT NULL, `uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `user_age` INTEGER NOT NULL, `user_weight` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "caloriesFactor",
             "columnName": "calories_factor",
             "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gender",
+            "columnName": "gender",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "height",
+            "columnName": "height",
+            "affinity": "INTEGER",
             "notNull": true
           },
           {
@@ -123,7 +135,7 @@
           {
             "fieldPath": "userWeight",
             "columnName": "user_weight",
-            "affinity": "REAL",
+            "affinity": "INTEGER",
             "notNull": true
           }
         ],
@@ -139,7 +151,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"7218adf6bcf089820a76205e9f58c332\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"9468676ac8e2d452bc7cb855c5f280d7\")"
     ]
   }
 }

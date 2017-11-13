@@ -30,6 +30,8 @@ public class AppSettingsEntityMapper {
             appSettingsModel.setUserAge(appSettingsEntity.getUserAge());
             appSettingsModel.setCaloriesFactor(appSettingsEntity.getCaloriesFactor());
             appSettingsModel.setUserWeight(appSettingsEntity.getUserWeight());
+            appSettingsModel.setHeight(appSettingsEntity.getHeight());
+            appSettingsModel.setGender(appSettingsEntity.getGender());
 
         }
         return appSettingsModel;
@@ -51,10 +53,11 @@ public class AppSettingsEntityMapper {
             appSettingsEntity.setUserAge(appSettingsModel.getUserAge());
             appSettingsEntity.setCaloriesFactor(appSettingsModel.getCaloriesFactor());
             appSettingsEntity.setUserWeight(appSettingsModel.getUserWeight());
+            appSettingsEntity.setGender(appSettingsModel.getGender());
+            appSettingsEntity.setHeight(appSettingsModel.getHeight());
 
         }
         return appSettingsEntity;
     }
-
-
+    
 }
