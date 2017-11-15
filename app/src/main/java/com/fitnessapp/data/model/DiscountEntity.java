@@ -17,11 +17,17 @@ public class DiscountEntity {
     @ColumnInfo(name = "store_name")
     String storeName;
 
+    @ColumnInfo(name = "store_logo")
+    String storeLogo;
+
+    @ColumnInfo(name = "card_image")
+    String cardImage;
+
+    @ColumnInfo(name = "card_overlay_color")
+    String cardOverlayColor;
+
     @ColumnInfo(name = "desc")
     String desc;
-
-    @ColumnInfo(name = "image")
-    String image;
 
     @ColumnInfo(name = "meal_name")
     String mealName;
@@ -35,6 +41,14 @@ public class DiscountEntity {
     @ColumnInfo(name = "step_count")
     int stepCount;
 
+    public int getUid() {
+        return uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
+    }
+
     public String getStoreName() {
         return storeName;
     }
@@ -43,20 +57,36 @@ public class DiscountEntity {
         this.storeName = storeName;
     }
 
+    public String getStoreLogo() {
+        return storeLogo;
+    }
+
+    public void setStoreLogo(String storeLogo) {
+        this.storeLogo = storeLogo;
+    }
+
+    public String getCardImage() {
+        return cardImage;
+    }
+
+    public void setCardImage(String cardImage) {
+        this.cardImage = cardImage;
+    }
+
+    public String getCardOverlayColor() {
+        return cardOverlayColor;
+    }
+
+    public void setCardOverlayColor(String cardOverlayColor) {
+        this.cardOverlayColor = cardOverlayColor;
+    }
+
     public String getDesc() {
         return desc;
     }
 
     public void setDesc(String desc) {
         this.desc = desc;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     public String getMealName() {
@@ -75,27 +105,19 @@ public class DiscountEntity {
         this.percentage = percentage;
     }
 
-    public int getStepCount() {
-        return stepCount;
-    }
-
-    public void setStepCount(int stepCount) {
-        this.stepCount = stepCount;
-    }
-
-    public int getUid() {
-        return uid;
-    }
-
-    public void setUid(int uid) {
-        this.uid = uid;
-    }
-
     public double getPrice() {
         return price;
     }
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public int getStepCount() {
+        return stepCount;
+    }
+
+    public void setStepCount(int stepCount) {
+        this.stepCount = stepCount;
     }
 }

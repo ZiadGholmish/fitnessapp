@@ -1,5 +1,8 @@
 package com.fitnessapp.domain.model;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.PrimaryKey;
+
 /**
  * Created by carriagecompany on 8/29/17.
  */
@@ -8,17 +11,21 @@ public class DiscountModel {
 
     String storeName;
 
-    String desc;
+    String storeLogo;
 
-    String image;
+    String cardImage;
+
+    String cardOverlayColor;
+
+    String desc;
 
     String mealName;
 
     int percentage;
 
-    int stepCount;
+    double price;
 
-    int price;
+    int stepCount;
 
     public String getStoreName() {
         return storeName;
@@ -28,20 +35,36 @@ public class DiscountModel {
         this.storeName = storeName;
     }
 
+    public String getStoreLogo() {
+        return storeLogo;
+    }
+
+    public void setStoreLogo(String storeLogo) {
+        this.storeLogo = storeLogo;
+    }
+
+    public String getCardImage() {
+        return cardImage;
+    }
+
+    public void setCardImage(String cardImage) {
+        this.cardImage = cardImage;
+    }
+
+    public String getCardOverlayColor() {
+        return cardOverlayColor;
+    }
+
+    public void setCardOverlayColor(String cardOverlayColor) {
+        this.cardOverlayColor = cardOverlayColor;
+    }
+
     public String getDesc() {
         return desc;
     }
 
     public void setDesc(String desc) {
         this.desc = desc;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     public String getMealName() {
@@ -60,19 +83,19 @@ public class DiscountModel {
         this.percentage = percentage;
     }
 
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
     public int getStepCount() {
         return stepCount;
     }
 
     public void setStepCount(int stepCount) {
         this.stepCount = stepCount;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
     }
 }
