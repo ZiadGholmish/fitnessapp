@@ -27,7 +27,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/back_img"
+                android:src="@drawable/foffers_header"
                 android:layout_height="match_parent" />
 
             <android.support.v7.widget.Toolbar

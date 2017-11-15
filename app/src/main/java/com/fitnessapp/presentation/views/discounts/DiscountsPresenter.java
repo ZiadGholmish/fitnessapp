@@ -166,6 +166,32 @@ public class DiscountsPresenter extends AbsPresenter<DiscountsContract.View> imp
                 SaveDiscountUseCase.Params.forSaveDiscount(discountEntity6));
 
 
+        DiscountModel discountEntity7 = new DiscountModel();
+        discountEntity7.setId(7);
+        discountEntity7.setStepCount(300);
+        discountEntity7.setStoreName("Platinum KW");
+        discountEntity7.setStoreLogo("http://www.platinumkw.com/templates/images/main-logo.gif");
+        discountEntity7.setCardImage("http://www.platinumkw.com/templates/images/img_3.png");
+        discountEntity7.setDesc("Congratulations on making the important decision, to take the first steps to a healthier, fitter you. We're delighted you're considering PLATINUM Health Club.");
+        discountEntity7.setCardOverlayColor("#99000000");
+        discountEntity7.setPrice(155);
+        discountEntity7.setPercentage(23);
+        saveStepCountUseCase.execute(new DiscountsPresenter.SaveDiscount(),
+                SaveDiscountUseCase.Params.forSaveDiscount(discountEntity7));
+
+        DiscountModel discountEntity8 = new DiscountModel();
+        discountEntity8.setId(8);
+        discountEntity8.setStepCount(300);
+        discountEntity8.setStoreName("Spark Athletic");
+        discountEntity8.setStoreLogo("https://static.wixstatic.com/media/e01d1f_b0acb340a0dc40dbb61812cc5db7a67f~mv2.png/v1/fill/w_348,h_123,al_c,usm_0.66_1.00_0.01/e01d1f_b0acb340a0dc40dbb61812cc5db7a67f~mv2.png");
+        discountEntity8.setCardImage("https://static.wixstatic.com/media/e01d1f_bc3faa628bf04f0bbd478b72992b2fc6~mv2_d_5184_3456_s_4_2.jpg/v1/fill/w_3645,h_2430,al_c,q_90,usm_0.66_1.00_0.01/e01d1f_bc3faa628bf04f0bbd478b72992b2fc6~mv2_d_5184_3456_s_4_2.jpg");
+        discountEntity8.setDesc("SPARK Athletic Center Kuwait’s leader in integrated sport performance training, nutrition, and physical therapy for professional athletes ");
+        discountEntity8.setCardOverlayColor("#99000000");
+        discountEntity8.setPrice(350);
+        discountEntity8.setPercentage(10);
+        saveStepCountUseCase.execute(new DiscountsPresenter.SaveDiscount(),
+                SaveDiscountUseCase.Params.forSaveDiscount(discountEntity8));
+
     }
 
     private final class SaveDiscount extends DefaultObserver<Void> {
