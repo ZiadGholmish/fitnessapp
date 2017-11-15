@@ -64,6 +64,7 @@ public class DiscountEntityMapper {
 
         if (discountModel != null) {
             discountEntity = new DiscountEntity();
+            discountEntity.setUid(discountModel.getId());
             discountEntity.setStoreName(discountModel.getStoreName());
             discountEntity.setStoreLogo(discountModel.getStoreLogo());
             discountEntity.setDesc(discountModel.getDesc());

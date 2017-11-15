@@ -9,6 +9,8 @@ import android.arch.persistence.room.PrimaryKey;
 
 public class DiscountModel {
 
+    int id;
+
     String storeName;
 
     String storeLogo;
@@ -26,6 +28,14 @@ public class DiscountModel {
     double price;
 
     int stepCount;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getStoreName() {
         return storeName;

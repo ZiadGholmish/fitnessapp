@@ -1,6 +1,7 @@
 package com.fitnessapp.presentation.views.discounts;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +22,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by carriagecompany on 9/26/17.
@@ -43,7 +45,6 @@ public class DiscountsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View v;
-
         v = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.discount_item_layout, viewGroup, false);
         return new DiscountViewHolder(v);
@@ -60,15 +61,15 @@ public class DiscountsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
-
     void showData(DiscountViewHolder discountViewHolder, DiscountModel discountEntity) {
-
-        Picasso.with(context).load(discountEntity.getImage()).into(discountViewHolder.meal_image);
-        discountViewHolder.meal_name.setText(discountEntity.getMealName());
-        discountViewHolder.meal_desc.setText(discountEntity.getDesc());
-        discountViewHolder.meal_price.setText(String.format(ResourcesUtil.getString(R.string.price_label), discountEntity.getPrice() + ""));
+        Picasso.with(context).load(discountEntity.getCardImage()).into(discountViewHolder.store_image);
+        Picasso.with(context).load(discountEntity.getStoreLogo()).into(discountViewHolder.store_logo);
+        discountViewHolder.store_name_tv.setText(discountEntity.getStoreName()+"");
+        discountViewHolder.overlay_view.setBackgroundColor(Color.parseColor(discountEntity.getCardOverlayColor()));
+        discountViewHolder.discount_amount_tv.setText(discountEntity.getPercentage()+"");
+        discountViewHolder.desc_tv.setText(discountEntity.getDesc());
+        discountViewHolder.price_tv.setText(String.format(ResourcesUtil.getString(R.string.price_label), discountEntity.getPrice() + ""));
     }
-
 
     @Override
     public int getItemViewType(int position) {
@@ -88,17 +89,26 @@ public class DiscountsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         @BindView(R.id.card_details)
         CardView card_details;
 
-        @BindView(R.id.meal_image)
-        ImageView meal_image;
+        @BindView(R.id.store_image)
+        ImageView store_image;
 
-        @BindView(R.id.meal_name)
-        TextView meal_name;
+        @BindView(R.id.overlay_view)
+        View overlay_view;
 
-        @BindView(R.id.meal_desc)
-        TextView meal_desc;
+        @BindView(R.id.store_name_tv)
+        TextView store_name_tv;
 
-        @BindView(R.id.meal_price)
-        TextView meal_price;
+        @BindView(R.id.discount_amount_tv)
+        TextView discount_amount_tv;
+
+        @BindView(R.id.store_logo)
+        CircleImageView store_logo;
+
+        @BindView(R.id.desc_tv)
+        TextView desc_tv;
+
+        @BindView(R.id.price_tv)
+        TextView price_tv;
 
         public DiscountViewHolder(@NonNull View itemView) {
             super(itemView);

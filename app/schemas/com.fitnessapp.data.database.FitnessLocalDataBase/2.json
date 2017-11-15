@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "a653048bc1b3c8a72783fb2b434cd27b",
+    "identityHash": "df4025f9ec0237af030f97ec1c808caa",
     "entities": [
       {
         "tableName": "steps",
@@ -38,17 +38,23 @@
       },
       {
         "tableName": "discounts",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`desc` TEXT, `image` TEXT, `meal_name` TEXT, `percentage` INTEGER NOT NULL, `price` REAL NOT NULL, `step_count` INTEGER NOT NULL, `store_name` TEXT, `uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`card_image` TEXT, `card_overlay_color` TEXT, `desc` TEXT, `meal_name` TEXT, `percentage` INTEGER NOT NULL, `price` REAL NOT NULL, `step_count` INTEGER NOT NULL, `store_logo` TEXT, `store_name` TEXT, `uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)",
         "fields": [
           {
-            "fieldPath": "desc",
-            "columnName": "desc",
+            "fieldPath": "cardImage",
+            "columnName": "card_image",
             "affinity": "TEXT",
             "notNull": false
           },
           {
-            "fieldPath": "image",
-            "columnName": "image",
+            "fieldPath": "cardOverlayColor",
+            "columnName": "card_overlay_color",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "desc",
+            "columnName": "desc",
             "affinity": "TEXT",
             "notNull": false
           },
@@ -75,6 +81,12 @@
             "columnName": "step_count",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "storeLogo",
+            "columnName": "store_logo",
+            "affinity": "TEXT",
+            "notNull": false
           },
           {
             "fieldPath": "storeName",
@@ -157,7 +169,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"a653048bc1b3c8a72783fb2b434cd27b\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"df4025f9ec0237af030f97ec1c808caa\")"
     ]
   }
 }
