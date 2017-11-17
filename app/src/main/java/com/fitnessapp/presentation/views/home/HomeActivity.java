@@ -81,8 +81,6 @@ public class HomeActivity extends AppCompatActivity
         homePresenter.attachView(this);
         homePresenter.setupGoogleClient();
         homePresenter.connectToGoogle();
-
-        showDiscounts();
     }
 
     @Override
@@ -216,9 +214,11 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+        if (id == R.id.nav_offers) {
+            showDiscounts();
+        }
         return true;
     }
 
