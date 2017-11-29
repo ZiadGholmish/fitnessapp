@@ -13,8 +13,6 @@ public interface UserDetailsContract {
         void openTrackScreen();
 
         void closeScreen();
-
-
     }
 
     interface Actions {

@@ -63,7 +63,6 @@ public class UserDetailsPresenter extends AbsPresenter<UserDetailsContract.View>
         return appSettingsModel;
     }
 
-
     private final class SaveAppSettings extends DefaultObserver<Void> {
 
         @Override

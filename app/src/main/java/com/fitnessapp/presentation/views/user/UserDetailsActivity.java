@@ -71,7 +71,6 @@ public class UserDetailsActivity extends AppCompatActivity implements UserDetail
         ButterKnife.bind(this);
         ((App) getApplicationContext()).getApplicationComponent().inject(this);
         userDetailsPresenter.attachView(this);
-
         userDetailsPresenter.checkAppSettings();
     }
 
