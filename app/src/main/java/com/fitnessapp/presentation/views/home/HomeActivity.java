@@ -107,6 +107,8 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public void applyProgress(float percentage) {
+
+        Log.e("the progress is " , percentage +"");
         count_progress.setProgress(percentage);
     }
 

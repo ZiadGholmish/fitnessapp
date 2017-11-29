@@ -15,13 +15,9 @@ import com.fitnessapp.domain.interactors.usecases.FetchAllStepCountsUseCase;
 import com.fitnessapp.domain.interactors.usecases.FetchAppSettingsUseCase;
 import com.fitnessapp.domain.interactors.usecases.ResetTotalStepCountUseCase;
 import com.fitnessapp.domain.interactors.usecases.SaveAppSettingsUseCase;
-import com.fitnessapp.domain.interactors.usecases.SaveDiscountUseCase;
 import com.fitnessapp.domain.interactors.usecases.SaveStepCountUseCase;
-import com.fitnessapp.domain.model.AppSettingsModel;
 import com.fitnessapp.domain.model.StepModel;
-import com.fitnessapp.presentation.views.discounts.DiscountsPresenter;
 import com.fitnessapp.utils.ResourcesUtil;
-import com.fitnessapp.utils.StringUtils;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -231,14 +227,14 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
     void handleSteps(long totalSteps) {
 
         mView.showStepsCount(String.format(ResourcesUtil.getString(R.string.step_place_holder), totalSteps + ""));
-        mView.applyProgress((float) (totalSteps / AppConstants.STEPS_IN_KILO_METER_TARGET));
+        mView.applyProgress(((float) totalSteps / AppConstants.STEPS_IN_KILO_METER_TARGET));
         mView.showStepsRemaining((int) (AppConstants.STEPS_IN_KILO_METER_TARGET - totalSteps));
     }
 
     void handleKMs(long totalSteps) {
 
         float kmCount = (float) totalSteps / AppConstants.STEPS_IN_KILO_METER_TARGET;
-        float progress = (float) (totalSteps / AppConstants.STEPS_IN_KILO_METER_TARGET);
+        float progress = ((float) totalSteps / AppConstants.STEPS_IN_KILO_METER_TARGET);
         float remainingKMs = (float)
                 (AppConstants.STEPS_IN_KILO_METER_TARGET / AppConstants.STEPS_IN_KILO_METER)
                 - ((float) totalSteps / AppConstants.STEPS_IN_KILO_METER);
@@ -253,9 +249,9 @@ public class HomePresenter extends AbsPresenter<HomeContract.View> implements Ho
         double caloriePerStep = caloriePerMile / 1600;
         int totalCaloriesBurned = (int) (totalSteps * caloriePerStep);
 
-        mView.applyCalories( totalCaloriesBurned / AppConstants.TARGET_CAOLORIES);
+        mView.applyCalories((float) totalCaloriesBurned / AppConstants.TARGET_CALORIES);
         mView.showCaloriesCount(totalCaloriesBurned);
-        mView.showCaloriesRemaining(AppConstants.TARGET_CAOLORIES - totalCaloriesBurned);
+        mView.showCaloriesRemaining(AppConstants.TARGET_CALORIES - totalCaloriesBurned);
     }
 
 

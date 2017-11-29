@@ -84,15 +84,17 @@ public class UserDetailsPresenter extends AbsPresenter<UserDetailsContract.View>
         }
     }
 
-
     private final class GetAppSettings extends DefaultObserver<AppSettingsModel> {
 
         @Override
         public void onNext(AppSettingsModel appSettingsModel) {
             super.onNext(appSettingsModel);
-            App.setAppSettingsModel(appSettingsModel);
-            mView.openTrackScreen();
-            mView.closeScreen();
+
+            if(appSettingsModel != null && appSettingsModel.getFullName() != null) {
+                App.setAppSettingsModel(appSettingsModel);
+                mView.openTrackScreen();
+                mView.closeScreen();
+            }
         }
 
         @Override
