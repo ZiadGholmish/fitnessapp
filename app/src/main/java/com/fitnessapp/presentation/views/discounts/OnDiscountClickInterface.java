@@ -1,6 +1,8 @@
 package com.fitnessapp.presentation.views.discounts;
 
 import com.fitnessapp.data.model.DiscountEntity;
+import com.fitnessapp.domain.model.DiscountModel;
+
 import java.util.Dictionary;
 import java.util.List;
 
@@ -10,5 +12,5 @@ import java.util.List;
 
 public interface OnDiscountClickInterface {
 
-    void onVehicleClick(DiscountEntity discountEntity);
+    void onDiscountItemSelected(DiscountModel discountEntity);
 }

@@ -7,5 +7,9 @@ public class AppConstants {
     public static final int STEPS_IN_KILO_METER_TARGET = 300;
     public static final int STEPS_IN_KILO_METER = 100;
 
-    public static final int TARGET_CALORIES = 1000;
+    public static final int TARGET_CALORIES = 40;
+
+
+    public static final String INTENT_DISCOUNT_ITEM = "INTENT_DISCOUNT_ITEM";
+
 }

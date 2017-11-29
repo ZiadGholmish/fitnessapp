@@ -3,6 +3,8 @@ package com.fitnessapp.dagger;
 
 import com.fitnessapp.presentation.views.discounts.DiscountsActivity;
 import com.fitnessapp.presentation.views.home.HomeActivity;
+import com.fitnessapp.presentation.views.offerdetails.OfferDetailsActivity;
+import com.fitnessapp.presentation.views.offerdetails.OfferDetailsContract;
 import com.fitnessapp.presentation.views.user.UserDetailsActivity;
 
 import javax.inject.Singleton;
@@ -22,4 +24,6 @@ public interface AppComponent {
     void inject(DiscountsActivity discountsActivity);
 
     void inject(UserDetailsActivity userDetailsActivity);
+
+    void inject(OfferDetailsActivity offerDetailsActivity);
 }

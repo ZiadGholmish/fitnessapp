@@ -57,6 +57,7 @@ public class DiscountsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         if (getItemViewType(holder.getAdapterPosition()) == NORMAL_ITEM) {
             DiscountViewHolder discountViewHolder = (DiscountViewHolder) holder;
             DiscountModel discountEntity = discountEntities.get(holder.getAdapterPosition());
+            discountViewHolder.itemView.setTag(holder.getAdapterPosition());
             showData(discountViewHolder, discountEntity);
         }
     }
@@ -64,11 +65,20 @@ public class DiscountsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     void showData(DiscountViewHolder discountViewHolder, DiscountModel discountEntity) {
         Picasso.with(context).load(discountEntity.getCardImage()).into(discountViewHolder.store_image);
         Picasso.with(context).load(discountEntity.getStoreLogo()).into(discountViewHolder.store_logo);
-        discountViewHolder.store_name_tv.setText(discountEntity.getStoreName()+"");
+        discountViewHolder.store_name_tv.setText(discountEntity.getStoreName() + "");
         discountViewHolder.overlay_view.setBackgroundColor(Color.parseColor(discountEntity.getCardOverlayColor()));
-        discountViewHolder.discount_amount_tv.setText(discountEntity.getPercentage()+"");
+        discountViewHolder.discount_amount_tv.setText(discountEntity.getPercentage() + "");
         discountViewHolder.desc_tv.setText(discountEntity.getDesc());
         discountViewHolder.price_tv.setText(String.format(ResourcesUtil.getString(R.string.price_label), discountEntity.getPrice() + ""));
+
+        discountViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onDiscountClickInterface.onDiscountItemSelected(
+                        discountEntities.get(Integer.parseInt(view.getTag().toString())));
+            }
+        });
+
     }
 
     @Override

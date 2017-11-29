@@ -26,9 +26,9 @@
 
             <ImageView
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/foffers_header"
-                android:layout_height="match_parent" />
+                android:src="@drawable/foffers_header" />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -38,14 +38,34 @@
                 app:contentInsetStart="0dp"
                 app:layout_collapseMode="pin">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Available Discounts"
-                    android:textAllCaps="true"
-                    android:textColor="@android:color/white"
-                    android:textSize="20sp" />
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/btn_back"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_arrow_back_black_24dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="Available Discounts"
+                        android:textAllCaps="true"
+                        android:textColor="@android:color/white"
+                        android:textSize="20sp" />
+
+                    <ImageButton
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="@android:color/transparent" />
+
+                </LinearLayout>
 
             </android.support.v7.widget.Toolbar>
 
