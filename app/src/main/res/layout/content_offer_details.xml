@@ -14,20 +14,27 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/store_name"
+            android:id="@+id/offer_price"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
-            android:text="Flex Gem"
+            android:layout_height="50dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="60dp"
+            android:lineSpacingExtra="2dp"
+            android:text="100kd"
+            android:textColor="@android:color/black"
             android:textSize="@dimen/font_size_large" />
 
         <TextView
             android:id="@+id/offer_details"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="20dp"
+            android:lineSpacingExtra="2dp"
             android:text="@string/large_text"
-            android:textSize="@dimen/font_size_medium" />
+            android:textSize="@dimen/font_size_large" />
 
     </LinearLayout>
 

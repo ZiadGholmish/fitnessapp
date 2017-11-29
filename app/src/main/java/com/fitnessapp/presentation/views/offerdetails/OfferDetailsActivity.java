@@ -11,12 +11,14 @@ import android.widget.TextView;
 import com.fitnessapp.R;
 import com.fitnessapp.app.App;
 import com.fitnessapp.domain.model.DiscountModel;
+import com.fitnessapp.utils.ResourcesUtil;
 import com.squareup.picasso.Picasso;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class OfferDetailsActivity extends AppCompatActivity implements OfferDetailsContract.View {
 
@@ -34,14 +36,14 @@ public class OfferDetailsActivity extends AppCompatActivity implements OfferDeta
     @BindView(R.id.app_bar)
     AppBarLayout appBar;
 
-    @BindView(R.id.store_name)
-    TextView storeName;
-
     @BindView(R.id.offer_details)
     TextView offerDetails;
 
+    @BindView(R.id.offer_price)
+    TextView offer_price;
+
     @BindView(R.id.store_image)
-    ImageView storeImage;
+    CircleImageView storeImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,7 @@ public class OfferDetailsActivity extends AppCompatActivity implements OfferDeta
         setSupportActionBar(toolbar);
         ButterKnife.bind(this);
         ((App) getApplicationContext()).getApplicationComponent().inject(this);
+        offerDetailsPresenter.attachView(this);
         offerDetailsPresenter.getOfferDetails(getIntent());
 
     }
@@ -59,7 +62,8 @@ public class OfferDetailsActivity extends AppCompatActivity implements OfferDeta
     public void showOfferDetails(DiscountModel discountModel) {
         Picasso.with(getApplicationContext()).load(discountModel.getCardImage()).into(offerImage);
         Picasso.with(getApplicationContext()).load(discountModel.getStoreLogo()).into(storeImage);
-        storeName.setText(discountModel.getStoreName());
+        setTitle(discountModel.getStoreName());
         offerDetails.setText(discountModel.getDesc());
+        offer_price.setText(String.format(ResourcesUtil.getString(R.string.price_label), discountModel.getPrice() + ""));
     }
 }

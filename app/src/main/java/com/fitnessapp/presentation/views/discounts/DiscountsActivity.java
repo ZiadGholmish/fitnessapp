@@ -26,7 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class DiscountsActivity extends AppCompatActivity implements DiscountsContract.View, OnDiscountClickInterface {
+public class DiscountsActivity extends AppCompatActivity implements DiscountsContract.View {
 
     @Inject
     DiscountsPresenter discountsPresenter;
@@ -53,7 +53,7 @@ public class DiscountsActivity extends AppCompatActivity implements DiscountsCon
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         discounts_recycler.setLayoutManager(linearLayoutManager);
-        DiscountsAdapter discountsAdapter = new DiscountsAdapter(getApplicationContext(), discountEntities, null);
+        DiscountsAdapter discountsAdapter = new DiscountsAdapter(getApplicationContext(), discountEntities, onDiscountClickInterface);
         discounts_recycler.setAdapter(discountsAdapter);
     }
 
@@ -63,11 +63,10 @@ public class DiscountsActivity extends AppCompatActivity implements DiscountsCon
         finish();
     }
 
-
-    @Override
-    public void onDiscountItemSelected(DiscountModel discountEntity) {
+    private OnDiscountClickInterface onDiscountClickInterface = discountEntity -> {
         Intent intent = new Intent(DiscountsActivity.this, OfferDetailsActivity.class);
         intent.putExtra(AppConstants.INTENT_DISCOUNT_ITEM, discountEntity);
         startActivity(intent);
-    }
+    };
+
 }

@@ -71,13 +71,8 @@ public class DiscountsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         discountViewHolder.desc_tv.setText(discountEntity.getDesc());
         discountViewHolder.price_tv.setText(String.format(ResourcesUtil.getString(R.string.price_label), discountEntity.getPrice() + ""));
 
-        discountViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onDiscountClickInterface.onDiscountItemSelected(
-                        discountEntities.get(Integer.parseInt(view.getTag().toString())));
-            }
-        });
+        discountViewHolder.itemView.setOnClickListener(view -> onDiscountClickInterface.onDiscountItemSelected(
+                discountEntities.get(Integer.parseInt(view.getTag().toString()))));
 
     }
 
